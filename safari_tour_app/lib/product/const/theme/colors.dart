@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color mainPrimary = Color(0xff0085FF);
+  static const Color mainPrimary = Color(0xfffdabcf6);
   static const int _primaryColor = 0xffff5f00;
   static const Map<int, Color> _swatch = <int, Color>{
     50: Color.fromARGB(24, 220, 85, 1),
@@ -21,7 +21,8 @@ class AppColors {
 
   /// White color.
   static const Color white = Color.fromRGBO(255, 255, 255, 1); //
-  static const Color button = Color(0xff005EB6);
+  static const Color button = Color(0xfffbba52);
+  static const Color transparent = Colors.transparent;
 
   /// White color.
   static const Color black = Color(0xff0d0d0d);

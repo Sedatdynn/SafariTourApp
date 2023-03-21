@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:safari_tour_app/feature/register/view/register.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 
 import '../../../product/const/duration/duration.dart';
@@ -25,7 +26,8 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     return Timer(Durations.slow, () {
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LaunchView()),
+            MaterialPageRoute(
+                builder: (context) => const RegisterView()), //LaunchView()),
             (route) => false);
       });
     });
@@ -74,7 +76,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     return AnimatedOpacity(
       opacity: _isVisible ? 1.0 : 0,
       duration: Durations.slow,
-      child: Center(
+      child: const Center(
         child: ClipOval(
             // child: ImagePaths.logo.toWidget(),
             ),
@@ -86,7 +88,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     return Positioned(
       bottom: context.dynamicHeight(0.05),
       child: Row(
-        children: [
+        children: const [
           // ImagePaths.flash.toWidget(),
           // ImagePaths.tech.toWidget(),
         ],
