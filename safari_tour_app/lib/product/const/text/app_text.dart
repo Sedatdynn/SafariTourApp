@@ -6,6 +6,7 @@ mixin AppText {
   static const String password = 'Password';
   static const String newUser = "I'm a new user.";
   static const String haveAccount = 'Already have an account? ';
+  static const String doNotHaveAccount = "Don't have an account? ";
   static const String register = 'Register';
   static const String registration = 'Registration';
   static const String drawerHome = 'Welcome';

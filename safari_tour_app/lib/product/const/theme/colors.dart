@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color mainPrimary = Color(0xfffdabcf6);
-  static const int _primaryColor = 0xffff5f00;
+  static const Color mainPrimary = Color(0xff3f3d56);
+  static const int _primaryColor = 0xfffbba52;
   static const Map<int, Color> _swatch = <int, Color>{
-    50: Color.fromARGB(24, 220, 85, 1),
-    100: Color.fromARGB(24, 220, 85, 2),
-    200: Color.fromARGB(24, 220, 85, 3),
-    300: Color.fromARGB(24, 220, 85, 4),
-    400: Color.fromARGB(24, 220, 85, 5),
-    500: Color.fromARGB(24, 220, 85, 6),
-    600: Color.fromARGB(24, 220, 85, 7),
-    700: Color.fromARGB(24, 220, 85, 8),
-    800: Color.fromARGB(24, 220, 85, 9),
-    900: Color.fromARGB(24, 220, 85, 1),
+    50: Color.fromRGBO(251, 186, 82, 1),
+    100: Color.fromRGBO(251, 186, 82, 2),
+    200: Color.fromRGBO(251, 186, 82, 3),
+    300: Color.fromRGBO(251, 186, 82, 4),
+    400: Color.fromRGBO(251, 186, 82, 5),
+    500: Color.fromRGBO(251, 186, 82, 6),
+    600: Color.fromRGBO(251, 186, 82, 7),
+    700: Color.fromRGBO(251, 186, 82, 8),
+    800: Color.fromRGBO(251, 186, 82, 9),
+    900: Color.fromRGBO(251, 186, 82, 1),
   };
 
   static const MaterialColor primarySwatch =

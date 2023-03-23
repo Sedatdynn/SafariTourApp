@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safari_tour_app/feature/splash/view/splash_view.dart';
+import 'package:safari_tour_app/product/const/theme/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: AppColors.primarySwatch,
+          appBarTheme: const AppBarTheme(
+              iconTheme: IconThemeData(color: AppColors.mainPrimary))),
       home: const SplashScreenView(),
     );
   }

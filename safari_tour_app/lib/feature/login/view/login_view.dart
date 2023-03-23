@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safari_tour_app/feature/launch/view/launch.dart';
-import 'package:safari_tour_app/feature/login/view/login_view.dart';
+import 'package:safari_tour_app/feature/register/view/register.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
@@ -11,13 +11,13 @@ import '../../../product/widget/button/active_button.dart';
 import '../../../product/widget/sizedBox/sized_box.dart';
 import '../../../product/widget/textfield/auth_textfield.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isVisible = false;
@@ -43,7 +43,7 @@ class _RegisterViewState extends State<RegisterView> {
           ConstSpace(
             height: context.dynamicHeight(0.05),
           ),
-          buildRegisterText(context),
+          buildLoginText(context),
           const ConstSpace(),
           buildEmailTextfield(),
           const ConstSpace(),
@@ -57,11 +57,11 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Align buildRegisterText(BuildContext context) {
+  Align buildLoginText(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
-        AppText.register,
+        AppText.login,
         style: Theme.of(context)
             .textTheme
             .headlineMedium
@@ -100,7 +100,7 @@ class _RegisterViewState extends State<RegisterView> {
     return SizedBox(
       width: context.width,
       child: ActiveButton(
-        label: AppText.register.toUpperCase(),
+        label: AppText.login.toUpperCase(),
         onPressed: () {},
       ),
     );
@@ -111,7 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          AppText.haveAccount,
+          AppText.doNotHaveAccount,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColors.darkGrey.withOpacity(0.4),
               ),
@@ -120,10 +120,10 @@ class _RegisterViewState extends State<RegisterView> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const LoginView(),
+                builder: (context) => const RegisterView(),
               )),
           child: Text(
-            AppText.login,
+            AppText.register,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
