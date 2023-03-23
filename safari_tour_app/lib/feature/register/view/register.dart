@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:safari_tour_app/feature/launch/view/launch.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/login/view/login_view.dart';
+import 'package:safari_tour_app/feature/register/cubit/register_cubit.dart';
+import 'package:safari_tour_app/feature/register/service/register_service.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
+import 'package:safari_tour_app/product/service/project_manager.dart';
 
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
@@ -18,11 +21,31 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool isVisible = false;
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => RegisterCubit(
+          formKey, emailController, passwordController,
+          service: RegisterService(ProjectNetworkManager.instance.service,
+              "/api/accounts/register")),
+      child: BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) async {
+          if (state is RegisterLoaded) {
+            state.navigate(context);
+          }
+        },
+        builder: (context, state) {
+          return buildMainBody(context, state);
+        },
+      ),
+    );
+  }
+
+  Scaffold buildMainBody(BuildContext context, RegisterState state) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -30,29 +53,33 @@ class _RegisterViewState extends State<RegisterView> {
       ),
       body: Padding(
         padding: context.extremeAllPadding,
-        child: buildMainBody(context),
-      ),
-    );
-  }
-
-  SingleChildScrollView buildMainBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ImagePaths.safari.toWidget(context: context),
-          ConstSpace(
-            height: context.dynamicHeight(0.05),
+        child: Form(
+          key: formKey,
+          autovalidateMode: state is RegisterValidateState
+              ? (state.isValidate
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled)
+              : AutovalidateMode.disabled,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ImagePaths.safari.toWidget(context: context),
+                ConstSpace(
+                  height: context.dynamicHeight(0.05),
+                ),
+                buildRegisterText(context),
+                const ConstSpace(),
+                buildEmailTextfield(),
+                const ConstSpace(),
+                buildPasswordTextfield(),
+                const ConstSpace(),
+                buildRegisterButton(context),
+                const ConstSpace(),
+                buildBottomText(context),
+              ],
+            ),
           ),
-          buildRegisterText(context),
-          const ConstSpace(),
-          buildEmailTextfield(),
-          const ConstSpace(),
-          buildPasswordTextfield(),
-          const ConstSpace(),
-          buildLoginButton(context),
-          const ConstSpace(),
-          buildBottomText(context),
-        ],
+        ),
       ),
     );
   }
@@ -72,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   ProductTextField buildEmailTextfield() {
     return ProductTextField(
-      controller: _emailController,
+      controller: emailController,
       validator: (value) => (value ?? "").contains("@") ? null : AppText.wrong,
       hintText: AppText.exampleMail,
       keyboardType: TextInputType.emailAddress,
@@ -81,8 +108,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   ProductTextField buildPasswordTextfield() {
     return ProductTextField(
-      controller: _passwordController,
-      validator: (value) => null,
+      controller: passwordController,
+      validator: (value) => (value ?? "").length > 5 ? null : "5ten kucuk",
       hintText: AppText.password,
       keyboardType: TextInputType.emailAddress,
       secondIcon: Icons.visibility_outlined,
@@ -96,12 +123,17 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  SizedBox buildLoginButton(BuildContext context) {
+  SizedBox buildRegisterButton(BuildContext context) {
     return SizedBox(
       width: context.width,
       child: ActiveButton(
         label: AppText.register.toUpperCase(),
-        onPressed: () {},
+        onPressed: context.watch<RegisterCubit>().isLoading
+            ? null
+            : () {
+                print("not nulll");
+                context.read<RegisterCubit>().postUserRegisterModel();
+              },
       ),
     );
   }
@@ -132,5 +164,12 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ],
     );
+  }
+}
+
+extension LoginCompleteExtension on RegisterLoaded {
+  void navigate(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginView()));
   }
 }
