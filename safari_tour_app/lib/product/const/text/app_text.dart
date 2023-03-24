@@ -12,4 +12,7 @@ mixin AppText {
   static const String drawerHome = 'Welcome';
   static const String drawerHistory = 'Launch';
   static const String wrong = 'Wrong!';
+  static const String invalidMail = 'Invalid mail!';
+  static const String invalidPassword =
+      'password must be at least 6 characters!';
 }

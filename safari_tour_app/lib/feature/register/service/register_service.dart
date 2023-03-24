@@ -13,16 +13,13 @@ class RegisterService extends IRegisterService {
     Map<String, dynamic> registerData,
   ) async {
     try {
-      print("REsponse");
       final response = await dio.post(item, data: {
         "username": registerData["username"],
         "password": registerData["password"],
       });
-      print("Response" + response.toString());
       if (response.statusCode == HttpStatus.created) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final jsonBody = response.data;
-        print("********" + jsonBody.toString());
         if (jsonBody is Map<String, dynamic>) {
           final token = LoginResponseModel.fromJson(jsonBody);
           prefs.setString("access", token.access!);
@@ -30,11 +27,9 @@ class RegisterService extends IRegisterService {
           return true;
         }
       }
-      print("false");
       return false;
     } catch (e) {
-      print(e);
-      throw e;
+      rethrow;
     }
   }
 }

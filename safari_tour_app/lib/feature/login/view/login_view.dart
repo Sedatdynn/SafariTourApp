@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/launch/view/launch.dart';
+import 'package:safari_tour_app/feature/login/service/login_service.dart';
 import 'package:safari_tour_app/feature/register/view/register.dart';
+import 'package:safari_tour_app/product/const/duration/duration.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
+import 'package:safari_tour_app/product/service/project_manager.dart';
 
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
 import '../../../product/widget/button/active_button.dart';
 import '../../../product/widget/sizedBox/sized_box.dart';
 import '../../../product/widget/textfield/auth_textfield.dart';
+import '../../home/view/home_view.dart';
+import '../cubit/login_cubit.dart';
+import '../cubit/login_state.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -18,17 +25,51 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool isVisible = false;
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.transparent,
+    return BlocProvider(
+      create: (context) => LoginCubit(
+          formKey, emailController, passwordController,
+          service: LoginService(
+              ProjectNetworkManager.instance.service, "/api/accounts/login")),
+      child: BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) async {
+          if (state is LoginComplete) {
+            state.navigate(context);
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: AppColors.transparent,
+              leading: Visibility(
+                visible: context.watch<LoginCubit>().isLoading,
+                child: const CircularProgressIndicator(
+                  color: AppColors.button,
+                ),
+              ),
+            ),
+            body: buildFormBody(state, context),
+          );
+        },
       ),
-      body: Padding(
+    );
+  }
+
+  Form buildFormBody(LoginState state, BuildContext context) {
+    return Form(
+      key: formKey,
+      autovalidateMode: state is LoginValidateState
+          ? (state.isValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled)
+          : AutovalidateMode.disabled,
+      child: Padding(
         padding: context.extremeAllPadding,
         child: buildMainBody(context),
       ),
@@ -72,8 +113,11 @@ class _LoginViewState extends State<LoginView> {
 
   ProductTextField buildEmailTextfield() {
     return ProductTextField(
-      controller: _emailController,
-      validator: (value) => (value ?? "").contains("@") ? null : AppText.wrong,
+      controller: emailController,
+      validator: (value) =>
+          ((value ?? "").contains("@") && (value ?? "").contains(".com"))
+              ? null
+              : AppText.invalidMail,
       hintText: AppText.exampleMail,
       keyboardType: TextInputType.emailAddress,
     );
@@ -81,8 +125,9 @@ class _LoginViewState extends State<LoginView> {
 
   ProductTextField buildPasswordTextfield() {
     return ProductTextField(
-      controller: _passwordController,
-      validator: (value) => null,
+      controller: passwordController,
+      validator: (value) =>
+          (value ?? "").length >= 6 ? null : AppText.invalidPassword,
       hintText: AppText.password,
       keyboardType: TextInputType.emailAddress,
       secondIcon: Icons.visibility_outlined,
@@ -96,13 +141,22 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  SizedBox buildLoginButton(BuildContext context) {
-    return SizedBox(
-      width: context.width,
-      child: ActiveButton(
-        label: AppText.login.toUpperCase(),
-        onPressed: () {},
-      ),
+  buildLoginButton(BuildContext context) {
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return SizedBox(
+          width: context.width,
+          child: ActiveButton(
+            label: AppText.login.toUpperCase(),
+            onPressed: context.watch<LoginCubit>().isLoading
+                ? null
+                : () {
+                    context.read<LoginCubit>().postUserModel();
+                  },
+          ),
+        );
+      },
     );
   }
 
@@ -132,5 +186,12 @@ class _LoginViewState extends State<LoginView> {
         ),
       ],
     );
+  }
+}
+
+extension LoginCompleteExtension on LoginComplete {
+  void navigate(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const HomeView()));
   }
 }

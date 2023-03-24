@@ -19,19 +19,16 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> postUserRegisterModel() async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      print("firstttt");
       changeLoadingView();
       bool? data = await service.postUserRegister({
         "username": emailController.text.trim(),
         "password": passwordController.text.trim(),
       });
-      print("object");
-      print(data);
       if (data!) {
-        print("a");
         emit(RegisterLoaded(data));
       } else {}
     } else {
+      changeLoadingView();
       isRegisterFail = true;
       emit(RegisterValidateState(isRegisterFail));
     }

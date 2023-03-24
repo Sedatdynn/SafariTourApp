@@ -24,7 +24,7 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isVisible = false;
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -50,6 +50,12 @@ class _RegisterViewState extends State<RegisterView> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.transparent,
+        leading: Visibility(
+          visible: context.watch<RegisterCubit>().isLoading,
+          child: const CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: context.extremeAllPadding,
@@ -100,7 +106,8 @@ class _RegisterViewState extends State<RegisterView> {
   ProductTextField buildEmailTextfield() {
     return ProductTextField(
       controller: emailController,
-      validator: (value) => (value ?? "").contains("@") ? null : AppText.wrong,
+      validator: (value) =>
+          (value ?? "").contains("@") ? null : AppText.invalidMail,
       hintText: AppText.exampleMail,
       keyboardType: TextInputType.emailAddress,
     );
@@ -109,7 +116,8 @@ class _RegisterViewState extends State<RegisterView> {
   ProductTextField buildPasswordTextfield() {
     return ProductTextField(
       controller: passwordController,
-      validator: (value) => (value ?? "").length > 5 ? null : "5ten kucuk",
+      validator: (value) =>
+          (value ?? "").length >= 6 ? null : AppText.invalidPassword,
       hintText: AppText.password,
       keyboardType: TextInputType.emailAddress,
       secondIcon: Icons.visibility_outlined,
@@ -131,7 +139,6 @@ class _RegisterViewState extends State<RegisterView> {
         onPressed: context.watch<RegisterCubit>().isLoading
             ? null
             : () {
-                print("not nulll");
                 context.read<RegisterCubit>().postUserRegisterModel();
               },
       ),
