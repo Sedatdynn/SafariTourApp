@@ -28,7 +28,6 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -88,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
           const ConstSpace(),
           buildEmailTextfield(),
           const ConstSpace(),
-          buildPasswordTextfield(),
+          buildPasswordTextfield(context),
           const ConstSpace(),
           buildLoginButton(context),
           const ConstSpace(),
@@ -123,22 +122,17 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  ProductTextField buildPasswordTextfield() {
+  ProductTextField buildPasswordTextfield(BuildContext context) {
     return ProductTextField(
-      controller: passwordController,
-      validator: (value) =>
-          (value ?? "").length >= 6 ? null : AppText.invalidPassword,
-      hintText: AppText.password,
-      keyboardType: TextInputType.emailAddress,
-      secondIcon: Icons.visibility_outlined,
-      firstIcon: Icons.visibility_off_outlined,
-      passwordVisible: isVisible,
-      onPressed: () {
-        setState(() {
-          isVisible = !isVisible;
-        });
-      },
-    );
+        controller: passwordController,
+        validator: (value) =>
+            (value ?? "").length >= 6 ? null : AppText.invalidPassword,
+        hintText: AppText.password,
+        keyboardType: TextInputType.emailAddress,
+        secondIcon: Icons.visibility_outlined,
+        firstIcon: Icons.visibility_off_outlined,
+        passwordVisible: context.watch<LoginCubit>().isVisible,
+        onPressed: context.read<LoginCubit>().changeVisible);
   }
 
   buildLoginButton(BuildContext context) {

@@ -24,7 +24,6 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -77,7 +76,7 @@ class _RegisterViewState extends State<RegisterView> {
                 const ConstSpace(),
                 buildEmailTextfield(),
                 const ConstSpace(),
-                buildPasswordTextfield(),
+                buildPasswordTextField(context),
                 const ConstSpace(),
                 buildRegisterButton(context),
                 const ConstSpace(),
@@ -113,7 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  ProductTextField buildPasswordTextfield() {
+  ProductTextField buildPasswordTextField(BuildContext context) {
     return ProductTextField(
       controller: passwordController,
       validator: (value) =>
@@ -122,12 +121,8 @@ class _RegisterViewState extends State<RegisterView> {
       keyboardType: TextInputType.emailAddress,
       secondIcon: Icons.visibility_outlined,
       firstIcon: Icons.visibility_off_outlined,
-      passwordVisible: isVisible,
-      onPressed: () {
-        setState(() {
-          isVisible = !isVisible;
-        });
-      },
+      passwordVisible: context.watch<RegisterCubit>().isVisible,
+      onPressed: context.read<RegisterCubit>().changeVisible,
     );
   }
 

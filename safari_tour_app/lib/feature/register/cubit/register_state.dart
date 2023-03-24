@@ -6,9 +6,12 @@ class RegisterInitial extends RegisterState {}
 
 class RegisterLoading extends RegisterState {
   bool isLoading;
-  RegisterLoading(
-    this.isLoading,
-  );
+  RegisterLoading(this.isLoading);
+}
+
+class RegisterVisibleState extends RegisterState {
+  bool isVisible;
+  RegisterVisibleState(this.isVisible);
 }
 
 class RegisterValidateState extends RegisterState {

@@ -16,3 +16,8 @@ class LoginLoadingState extends LoginState {
   bool isLoading;
   LoginLoadingState(this.isLoading);
 }
+
+class LoginVisibleState extends LoginState {
+  bool isVisible;
+  LoginVisibleState(this.isVisible);
+}

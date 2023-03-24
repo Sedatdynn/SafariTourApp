@@ -11,6 +11,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController passwordController;
   bool isRegisterFail = false;
   bool isLoading = false;
+  bool isVisible = true;
   RegisterService service = RegisterService(
       ProjectNetworkManager.instance.service, "/api/accounts/register");
   RegisterCubit(this.formKey, this.emailController, this.passwordController,
@@ -38,5 +39,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   void changeLoadingView() {
     isLoading = !isLoading;
     emit(RegisterLoading(isLoading));
+  }
+
+  void changeVisible() {
+    isVisible = !isVisible;
+    emit(RegisterVisibleState(isVisible));
   }
 }

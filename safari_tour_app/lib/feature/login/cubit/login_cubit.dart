@@ -12,6 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
       ProjectNetworkManager.instance.service, "/api/accounts/login");
   bool isLoginFail = false;
   bool isLoading = false;
+  bool isVisible = true;
   LoginCubit(this.formKey, this.emailController, this.passwordController,
       {required this.service})
       : super(LoginInitial());
@@ -28,9 +29,9 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginComplete(data));
       } else {}
     } else {
-      changeLoadingView();
       isLoginFail = true;
       emit(LoginValidateState(isLoginFail));
+      changeLoadingView();
     }
     changeLoadingView();
   }
@@ -38,5 +39,10 @@ class LoginCubit extends Cubit<LoginState> {
   void changeLoadingView() {
     isLoading = !isLoading;
     emit(LoginLoadingState(isLoading));
+  }
+
+  void changeVisible() {
+    isVisible = !isVisible;
+    emit(LoginVisibleState(isVisible));
   }
 }
