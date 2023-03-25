@@ -12,11 +12,14 @@ class GeneralService extends IGeneralService {
 
   @override
   Future<List<Results>?> fetchTourItems() async {
+    print("object");
     try {
-      final response = await dio.get("/api/Results/");
+      final response = await dio.get("/api/safari/all");
+      print("****response" + response.toString());
       var resData = response.data;
       if (response.statusCode == HttpStatus.ok) {
         List<Results>? results = HomeModel.fromJson(resData).results;
+        print("++++++++++++" + results.toString());
         return results;
       }
     } catch (e) {
