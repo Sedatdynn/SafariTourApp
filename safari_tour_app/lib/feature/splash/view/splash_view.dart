@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:safari_tour_app/feature/register/view/register.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 

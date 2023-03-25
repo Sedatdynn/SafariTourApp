@@ -1,0 +1,13 @@
+import 'package:dio/dio.dart';
+import 'package:safari_tour_app/feature/home/model/home_model.dart';
+
+abstract class IGeneralService {
+  IGeneralService(
+    this.dio,
+    this.item,
+  );
+  final Dio dio;
+  String item;
+
+  Future<List<Results>?> fetchTourItems();
+}

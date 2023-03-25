@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/launch/view/launch.dart';
 import 'package:safari_tour_app/feature/login/service/login_service.dart';
 import 'package:safari_tour_app/feature/register/view/register.dart';
-import 'package:safari_tour_app/product/const/duration/duration.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
