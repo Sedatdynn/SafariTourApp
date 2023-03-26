@@ -28,7 +28,7 @@ class Results {
   String? maxPrice;
   int? ratingsQuantity;
   String? ratingsAverage;
-  TourData? tourData;
+  TourData? tour_data;
   InclusionsData? inclusionsData;
   List<String>? gettingThereData;
   List<DayByDay>? dayByDay;
@@ -42,7 +42,7 @@ class Results {
       this.maxPrice,
       this.ratingsQuantity,
       this.ratingsAverage,
-      this.tourData,
+      this.tour_data,
       this.inclusionsData,
       this.gettingThereData,
       this.dayByDay});
@@ -73,14 +73,14 @@ class TourData {
 
 @JsonSerializable()
 class Overview {
-  List<RouteData>? routeData;
+  List<RouteData>? route_data;
   List<TourFeatures>? tourFeatures;
   String? routeDescription;
   List<AccommodationAndMeals>? accommodationAndMeals;
   List<String>? activitiesAndTransportation;
 
   Overview(
-      {this.routeData,
+      {this.route_data,
       this.tourFeatures,
       this.routeDescription,
       this.accommodationAndMeals,
@@ -97,11 +97,11 @@ class Overview {
 
 @JsonSerializable()
 class RouteData {
-  Day0? day0;
-  Day0? day1;
-  Day1? day2;
+  Day0? day_0;
+  Day0? day_1;
+  Day1? day_2;
 
-  RouteData({this.day0, this.day1, this.day2});
+  RouteData({this.day_0, this.day_1, this.day_2});
 
   factory RouteData.fromJson(Map<String, dynamic> json) {
     return _$RouteDataFromJson(json);

@@ -11,10 +11,20 @@ class HomeCubit extends Cubit<HomeState> {
   List<Results> allItems = [];
 
   Future<void> fetchAllItems() async {
+    final a = (await generalService.fetchTourItems()) ?? [];
+    print("//-----------" + a[0].price.toString());
+    // print("//-----------" +
+    //         a[0]
+    //             .tourData
+    //             ?.overview
+    //             ?.tourFeatures?[1]
+    //             .feature0
+    //             ?.title
+    //             .toString() ??
+    //     "sss");
+
     try {
-      final allItems = (await generalService.fetchTourItems()) ?? [];
-      print("-------" + allItems.toString());
-      print("-------" + allItems.length.toString());
+      allItems = a;
       emit(HomeItemsLoaded(allItems));
     } catch (e) {
       emit(HomeError(allItems.toString()));

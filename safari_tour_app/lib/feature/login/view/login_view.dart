@@ -112,9 +112,7 @@ class _LoginViewState extends State<LoginView> {
     return ProductTextField(
       controller: emailController,
       validator: (value) =>
-          ((value ?? "").contains("@") && (value ?? "").contains(".com"))
-              ? null
-              : AppText.invalidMail,
+          ((value ?? "").length > 2) ? null : AppText.invalidMail,
       hintText: AppText.exampleMail,
       keyboardType: TextInputType.emailAddress,
     );

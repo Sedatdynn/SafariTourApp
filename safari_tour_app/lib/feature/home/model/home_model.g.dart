@@ -29,9 +29,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       maxPrice: json['maxPrice'] as String?,
       ratingsQuantity: json['ratingsQuantity'] as int?,
       ratingsAverage: json['ratingsAverage'] as String?,
-      tourData: json['tourData'] == null
+      tour_data: json['tour_data'] == null
           ? null
-          : TourData.fromJson(json['tourData'] as Map<String, dynamic>),
+          : TourData.fromJson(json['tour_data'] as Map<String, dynamic>),
       inclusionsData: json['inclusionsData'] == null
           ? null
           : InclusionsData.fromJson(
@@ -53,7 +53,7 @@ Map<String, dynamic> _$ResultsToJson(Results instance) => <String, dynamic>{
       'maxPrice': instance.maxPrice,
       'ratingsQuantity': instance.ratingsQuantity,
       'ratingsAverage': instance.ratingsAverage,
-      'tourData': instance.tourData,
+      'tour_data': instance.tour_data,
       'inclusionsData': instance.inclusionsData,
       'gettingThereData': instance.gettingThereData,
       'dayByDay': instance.dayByDay,
@@ -70,7 +70,7 @@ Map<String, dynamic> _$TourDataToJson(TourData instance) => <String, dynamic>{
     };
 
 Overview _$OverviewFromJson(Map<String, dynamic> json) => Overview(
-      routeData: (json['routeData'] as List<dynamic>?)
+      route_data: (json['route_data'] as List<dynamic>?)
           ?.map((e) => RouteData.fromJson(e as Map<String, dynamic>))
           .toList(),
       tourFeatures: (json['tourFeatures'] as List<dynamic>?)
@@ -88,7 +88,7 @@ Overview _$OverviewFromJson(Map<String, dynamic> json) => Overview(
     );
 
 Map<String, dynamic> _$OverviewToJson(Overview instance) => <String, dynamic>{
-      'routeData': instance.routeData,
+      'route_data': instance.route_data,
       'tourFeatures': instance.tourFeatures,
       'routeDescription': instance.routeDescription,
       'accommodationAndMeals': instance.accommodationAndMeals,
@@ -96,21 +96,21 @@ Map<String, dynamic> _$OverviewToJson(Overview instance) => <String, dynamic>{
     };
 
 RouteData _$RouteDataFromJson(Map<String, dynamic> json) => RouteData(
-      day0: json['day0'] == null
+      day_0: json['day_0'] == null
           ? null
-          : Day0.fromJson(json['day0'] as Map<String, dynamic>),
-      day1: json['day1'] == null
+          : Day0.fromJson(json['day_0'] as Map<String, dynamic>),
+      day_1: json['day_1'] == null
           ? null
-          : Day0.fromJson(json['day1'] as Map<String, dynamic>),
-      day2: json['day2'] == null
+          : Day0.fromJson(json['day_1'] as Map<String, dynamic>),
+      day_2: json['day_2'] == null
           ? null
-          : Day1.fromJson(json['day2'] as Map<String, dynamic>),
+          : Day1.fromJson(json['day_2'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RouteDataToJson(RouteData instance) => <String, dynamic>{
-      'day0': instance.day0,
-      'day1': instance.day1,
-      'day2': instance.day2,
+      'day_0': instance.day_0,
+      'day_1': instance.day_1,
+      'day_2': instance.day_2,
     };
 
 Day0 _$Day0FromJson(Map<String, dynamic> json) => Day0(

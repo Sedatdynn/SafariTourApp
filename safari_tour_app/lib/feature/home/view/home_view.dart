@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safari_tour_app/product/const/theme/colors.dart';
+import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 
+import '../../../product/const/border/border_radi.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 
@@ -21,37 +24,58 @@ class _HomeViewState extends State<HomeView> {
           return Scaffold(
             body: SingleChildScrollView(
               child: SizedBox(
-                height: 700,
+                height: context.height,
                 child: ListView.builder(
                   itemCount: context.read<HomeCubit>().allItems.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Text(
-                          context.read<HomeCubit>().allItems[index].name ?? "",
-                          style: TextStyle(color: Colors.green, fontSize: 35),
-                        ),
-                        Text(
-                          context
-                              .read<HomeCubit>()
-                              .allItems[index]
-                              .id
-                              .toString(),
-                          style: TextStyle(color: Colors.green, fontSize: 35),
-                        ),
-                        Text(
-                          context
+                    print(
+                        "--*---${context.read<HomeCubit>().allItems[index].tour_data}");
+                    return Container(
+                      margin: context.lowAllPadding,
+                      padding: context.lowAllPadding,
+                      decoration: BoxDecoration(
+                          color: AppColors.button,
+                          borderRadius: BorderRadi.lowCircular),
+                      height: context.dynamicHeight(0.4),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network(context
                                   .read<HomeCubit>()
                                   .allItems[index]
                                   .imageCover ??
-                              "",
-                          style: TextStyle(color: Colors.green, fontSize: 35),
-                        ),
-                        Text(
-                          context.read<HomeCubit>().allItems[index].url ?? "",
-                          style: TextStyle(color: Colors.green, fontSize: 35),
-                        ),
-                      ],
+                              ""),
+                          Text(
+                            context.read<HomeCubit>().allItems[index].name ??
+                                "",
+                            style: TextStyle(
+                                color: AppColors.mainPrimary, fontSize: 35),
+                          ),
+                          Text(
+                            context
+                                .read<HomeCubit>()
+                                .allItems[index]
+                                .price
+                                .toString(),
+                            style: TextStyle(
+                                color: AppColors.mainPrimary, fontSize: 35),
+                          ),
+                          Text(
+                            context
+                                    .read<HomeCubit>()
+                                    .allItems[index]
+                                    .tour_data!
+                                    .overview
+                                    ?.route_data?[0]
+                                    .day_0
+                                    ?.days
+                                    .toString() ??
+                                "",
+                            style: TextStyle(
+                                color: AppColors.mainPrimary, fontSize: 35),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
