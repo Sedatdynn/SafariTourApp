@@ -130,20 +130,20 @@ class Day0 {
 
 @JsonSerializable()
 class TourFeatures {
-  Feature0? feature0;
-  Feature0? feature1;
-  Feature0? feature2;
-  Feature0? feature3;
-  Feature0? feature4;
-  Feature0? feature5;
+  Feature0? feature_0;
+  Feature0? feature_1;
+  Feature0? feature_2;
+  Feature0? feature_3;
+  Feature0? feature_4;
+  Feature0? feature_5;
 
   TourFeatures(
-      {this.feature0,
-      this.feature1,
-      this.feature2,
-      this.feature3,
-      this.feature4,
-      this.feature5});
+      {this.feature_0,
+      this.feature_1,
+      this.feature_2,
+      this.feature_3,
+      this.feature_4,
+      this.feature_5});
 
   factory TourFeatures.fromJson(Map<String, dynamic> json) {
     return _$TourFeaturesFromJson(json);

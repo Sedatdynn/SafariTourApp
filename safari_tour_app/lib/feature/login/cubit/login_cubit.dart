@@ -6,14 +6,14 @@ import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final GlobalKey<FormState> formKey;
-  final TextEditingController emailController;
+  final TextEditingController usernameController;
   final TextEditingController passwordController;
   LoginService service = LoginService(
       ProjectNetworkManager.instance.service, "/api/accounts/login");
   bool isLoginFail = false;
   bool isLoading = false;
   bool isVisible = true;
-  LoginCubit(this.formKey, this.emailController, this.passwordController,
+  LoginCubit(this.formKey, this.usernameController, this.passwordController,
       {required this.service})
       : super(LoginInitial());
 
@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       changeLoadingView();
       bool? data = await service.postUserLogin({
-        "username": emailController.text.trim(),
+        "username": usernameController.text.trim(),
         "password": passwordController.text.trim()
       });
 

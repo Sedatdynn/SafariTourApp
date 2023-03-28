@@ -124,34 +124,34 @@ Map<String, dynamic> _$Day0ToJson(Day0 instance) => <String, dynamic>{
     };
 
 TourFeatures _$TourFeaturesFromJson(Map<String, dynamic> json) => TourFeatures(
-      feature0: json['feature0'] == null
+      feature_0: json['feature_0'] == null
           ? null
-          : Feature0.fromJson(json['feature0'] as Map<String, dynamic>),
-      feature1: json['feature1'] == null
+          : Feature0.fromJson(json['feature_0'] as Map<String, dynamic>),
+      feature_1: json['feature_1'] == null
           ? null
-          : Feature0.fromJson(json['feature1'] as Map<String, dynamic>),
-      feature2: json['feature2'] == null
+          : Feature0.fromJson(json['feature_1'] as Map<String, dynamic>),
+      feature_2: json['feature_2'] == null
           ? null
-          : Feature0.fromJson(json['feature2'] as Map<String, dynamic>),
-      feature3: json['feature3'] == null
+          : Feature0.fromJson(json['feature_2'] as Map<String, dynamic>),
+      feature_3: json['feature_3'] == null
           ? null
-          : Feature0.fromJson(json['feature3'] as Map<String, dynamic>),
-      feature4: json['feature4'] == null
+          : Feature0.fromJson(json['feature_3'] as Map<String, dynamic>),
+      feature_4: json['feature_4'] == null
           ? null
-          : Feature0.fromJson(json['feature4'] as Map<String, dynamic>),
-      feature5: json['feature5'] == null
+          : Feature0.fromJson(json['feature_4'] as Map<String, dynamic>),
+      feature_5: json['feature_5'] == null
           ? null
-          : Feature0.fromJson(json['feature5'] as Map<String, dynamic>),
+          : Feature0.fromJson(json['feature_5'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TourFeaturesToJson(TourFeatures instance) =>
     <String, dynamic>{
-      'feature0': instance.feature0,
-      'feature1': instance.feature1,
-      'feature2': instance.feature2,
-      'feature3': instance.feature3,
-      'feature4': instance.feature4,
-      'feature5': instance.feature5,
+      'feature_0': instance.feature_0,
+      'feature_1': instance.feature_1,
+      'feature_2': instance.feature_2,
+      'feature_3': instance.feature_3,
+      'feature_4': instance.feature_4,
+      'feature_5': instance.feature_5,
     };
 
 Feature0 _$Feature0FromJson(Map<String, dynamic> json) => Feature0(

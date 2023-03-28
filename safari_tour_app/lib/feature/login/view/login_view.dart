@@ -24,13 +24,13 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> formKey = GlobalKey();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(
-          formKey, emailController, passwordController,
+          formKey, usernameController, passwordController,
           service: LoginService(
               ProjectNetworkManager.instance.service, "/api/accounts/login")),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -41,19 +41,23 @@ class _LoginViewState extends State<LoginView> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: AppColors.transparent,
-              leading: Visibility(
-                visible: context.watch<LoginCubit>().isLoading,
-                child: const CircularProgressIndicator(
-                  color: AppColors.button,
-                ),
-              ),
-            ),
+            appBar: buildCustomAppBar(context),
             body: buildFormBody(state, context),
           );
         },
+      ),
+    );
+  }
+
+  AppBar buildCustomAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: AppColors.transparent,
+      leading: Visibility(
+        visible: context.watch<LoginCubit>().isLoading,
+        child: const CircularProgressIndicator(
+          color: AppColors.button,
+        ),
       ),
     );
   }
@@ -83,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           buildLoginText(context),
           const ConstSpace(),
-          buildEmailTextfield(),
+          buildUsernameTextfield(),
           const ConstSpace(),
           buildPasswordTextfield(context),
           const ConstSpace(),
@@ -108,13 +112,13 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  ProductTextField buildEmailTextfield() {
+  ProductTextField buildUsernameTextfield() {
     return ProductTextField(
-      controller: emailController,
+      controller: usernameController,
       validator: (value) =>
-          ((value ?? "").length > 2) ? null : AppText.invalidMail,
-      hintText: AppText.exampleMail,
-      keyboardType: TextInputType.emailAddress,
+          (value ?? "").length >= 4 ? null : AppText.invalidUsername,
+      hintText: AppText.exampleUsername,
+      keyboardType: TextInputType.text,
     );
   }
 

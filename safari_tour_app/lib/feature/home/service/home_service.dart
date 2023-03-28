@@ -17,7 +17,7 @@ class GeneralService extends IGeneralService {
       var resData = response.data;
       if (response.statusCode == HttpStatus.ok) {
         List<Results>? results = HomeModel.fromJson(resData).results;
-        print("++++++++++++${results![0].tour_data?.overview}");
+        // print("++++++++++++${results![0].tour_data?.overview}");
         return results;
       }
     } catch (e) {

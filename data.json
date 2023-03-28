@@ -1,0 +1,144 @@
+{
+    "count": 19,
+    "next": "http://185.250.192.69/api/safari/all?page=2",
+    "previous": null,
+    "results": [
+      {
+        "id": 1,
+        "imageCover": "https://cloudfront.safaribookings.com/lib/kenya/tour/1184x259/Nairobi_National_Park_001.jpg",
+        "name": "4-Day High End Super Luxury Migration Safari",
+        "url": "https://www.safaribookings.com/tours/t25143",
+        "price": "1795.00",
+        "max_price": "2145.00",
+        "ratingsQuantity": 212,
+        "ratingsAverage": "4.9",
+        "tour_data": {
+          "overview": {
+            "route_data": [
+              {
+                "day_0": {
+                  "days": "Start",
+                  "days_route": "Nairobi (Day 1)"
+                },
+                "day_1": {
+                  "days": "Day 1-3",
+                  "days_route": "Masai Mara NR"
+                },
+                "day_2": {
+                  "days": "End",
+                  "days_route": "Nairobi (City) (Day 4)"
+                }
+              }
+            ],
+            "tour_features": [
+              {
+                "feature_0": {
+                  "title": "Luxury+ tour",
+                  "description": "This luxury+ tour uses tented camps."
+                },
+                "feature_1": {
+                  "title": "Private tour",
+                  "description": "This tour will be organized exclusively for you and won't be shared with others."
+                },
+                "feature_2": {
+                  "title": "Can start any day",
+                  "description": "If availability permits, this tour can start on any day."
+                },
+                "feature_3": {
+                  "title": "Can be customized",
+                  "description": "You can request changes to this tour."
+                },
+                "feature_4": {
+                  "title": "Not for solo travelers",
+                  "description": "Solo travelers cannot book this private tour."
+                },
+                "feature_5": {
+                  "title": "Minimum age of 12 years",
+                  "description": "The minimum age for this tour is 12 years."
+                }
+              }
+            ],
+            "route_description": "This safari will give you plenty of time to explore the wildlife and wonders if perhaps the premier game park in the world! The Masai Mara National Reserve is famous for its grand displays of animal life, landscapes, and native culture. Once you’ve been to the Mara, you can say you have seen Africa. The Masai Mara is also home to the Great Migration where countless herds of wildebeest and zebra sweep over the Savannah in an unforgettable display of wildlife unique to the planet.",
+            "accomodaton_and_meals": [
+              {
+                "accomodation_0": {
+                  "day": "4",
+                  "meals": "Breakfast & Lunch Included",
+                  "accommodation": {
+                    "image": "\n                                                                                End of tour(No accommodation)\n\n\n                                                                                    – Breakfast & Lunch Included\n                                                                                    \n",
+                    "title": "End of tour(No accommodation)                                                                                    – Breakfast & Lunch Included",
+                    "description": "(No accommodation)"
+                  }
+                }
+              }
+            ],
+            "activities_and_transportation": [
+              "Activities: game drives",
+              "Game drives: pop-up roof 4x4 vehicle",
+              "Getting around: pop-up roof 4x4 vehicle",
+              "This operator can help select your international flights, but you'll have to book them yourself help",
+              "A transfer from and back to the airport is included"
+            ]
+          }
+        },
+        "inclusions_data": {
+          "inclusions": {
+            "excluded": [
+              "International flights (From/to home)",
+              "Additional accommodation before and at the end of the tour",
+              "Tips (Tipping guideline US$10.00 pp per day)",
+              "Personal items (Souvenirs, travel insurance, visa fees, etc.)",
+              "Government imposed increase of taxes and/or park fees",
+              "Drinks"
+            ],
+            "included": [
+              "Park fees (For non-residents)",
+              "All activities (Unless labeled as optional)",
+              "All accommodation (Unless listed as upgrade)",
+              "A professional driver/guide",
+              "All transportation (Unless labeled as optional)",
+              "All Taxes/VAT",
+              "Roundtrip airport transfer",
+              "Meals (As specified in the day-by-day section)"
+            ]
+          }
+        },
+        "getting_there_data": [
+          "This tour starts and ends in Nairobi",
+          "This operator can help select your international flights, but you'll have to book them yourself help",
+          "Fly to/from Jomo Kenyatta Airport (NBO - Check price) in Nairobi",
+          "A transfer from and back to the airport is included",
+          "Additional accommodation before and at the end of the tour can be arranged for an extra cost"
+        ],
+        "day_by_day": [
+          {
+            "day_1": {
+              "image": "https://cloudfront.safaribookings.com/lib/kenya/destination/464x145/Masai_Mara_National_Reserve_080.jpg",
+              "description": "Depart from your Nairobi hotel for the Masai Mara Game Reserve stopping at the viewpoint of the Great Rift Valley and at Narok town for refueling. Arrive in time for lunch and an afternoon game drive in the reserve which is famous for its high animal concentration, abundance, and variety. Welcome to andBeyond Kichwa Tembo Tented camp.\n\nSprawled along the Saparingo River on the edge of the Oloololo escarpment, where riverine forest meets the sweeping plains in the seasonal path of the awe-inspiring Great Migration, this camp provides an authentic dose of African wildlife, delivered with legendary Kenyan hospitality.\n\nAfternoon game drive.\n\nDinner and overnight at andBeyond Kichwa Tembo  luxury camp\nApproximate transit time: 5½ hrs\nMeal plan: Lunch and Dinner.",
+              "destination": "Masai Mara"
+            },
+            "day_2": {
+              "image": "https://cloudfront.safaribookings.com/lib/kenya/destination/464x145/Masai_Mara_National_Reserve_042.jpg",
+              "description": "Full day spent game viewing across the rich, tree-studded grassland and rolling hills. The famous Mara is renowned for its great herds of plain game, black-manned lions, leopard, and cheetah but also contains numerous elephants and virtually every type of wildlife to be found in Kenya. In the evening, drive back to the camp for dinner and a well deserved overnight.",
+              "destination": "Masai Mara - Great Migration Experience"
+            },
+            "day_3": {
+              "image": "https://cloudfront.safaribookings.com/lib/kenya/destination/464x145/Masai_Mara_National_Reserve_001.jpg",
+              "description": "Another day of unlimited game drives extravaganza!\n\nThe Masai Mara combines some of the richest Big Five viewing on the planet and is home to lion prides, leopard and elephant parades. In migration season, vast herds of wildebeest stretch as far as the eye can see, and with the diverse eco-systems comes a variety of bird life.\nSpend the whole day in Masai Mara with picnic lunches, Kenya’s most popular game sanctuary where you will have the best opportunity of spotting the Big Five – lion, leopard, buffalo, rhino, and elephant. In the evening, drive back to the camp for dinner and overnight.",
+              "destination": "Explore the Great Masai Mara"
+            },
+            "day_4": {
+              "image": "https://cloudfront.safaribookings.com/lib/kenya/destination/464x145/Nairobi_011.jpg",
+              "description": "Pre-breakfast game drive, return to the lodge for breakfast. After breakfast, depart the Mara region for Nairobi with lunch en-route. Arrive in Nairobi late in the afternoon at approximately 16:00. Drop off at your hotel or airport where the safari ends.",
+              "destination": "Masai Mara - Nairobi"
+            },
+            "day_5": {
+              "image": "",
+              "description": "",
+              "destination": "End of tour (See Getting There for more details)"
+            }
+          }
+        ]
+      }
+    ]
+  }

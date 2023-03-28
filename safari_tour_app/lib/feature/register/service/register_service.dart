@@ -15,6 +15,7 @@ class RegisterService extends IRegisterService {
     try {
       final response = await dio.post(item, data: {
         "username": registerData["username"],
+        "email": registerData["email"],
         "password": registerData["password"],
       });
       if (response.statusCode == HttpStatus.created) {

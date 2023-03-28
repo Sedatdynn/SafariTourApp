@@ -22,13 +22,14 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> formKey = GlobalKey();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
-          formKey, emailController, passwordController,
+          formKey, usernameController, emailController, passwordController,
           service: RegisterService(ProjectNetworkManager.instance.service,
               "/api/accounts/register")),
       child: BlocConsumer<RegisterCubit, RegisterState>(
@@ -46,45 +47,59 @@ class _RegisterViewState extends State<RegisterView> {
 
   Scaffold buildMainBody(BuildContext context, RegisterState state) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.transparent,
-        leading: Visibility(
-          visible: context.watch<RegisterCubit>().isLoading,
-          child: const CircularProgressIndicator(
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: buildCustomAppBar(context),
       body: Padding(
         padding: context.extremeAllPadding,
-        child: Form(
-          key: formKey,
-          autovalidateMode: state is RegisterValidateState
-              ? (state.isValidate
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled)
-              : AutovalidateMode.disabled,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ImagePaths.safari.toWidget(context: context),
-                ConstSpace(
-                  height: context.dynamicHeight(0.05),
-                ),
-                buildRegisterText(context),
-                const ConstSpace(),
-                buildEmailTextfield(),
-                const ConstSpace(),
-                buildPasswordTextField(context),
-                const ConstSpace(),
-                buildRegisterButton(context),
-                const ConstSpace(),
-                buildBottomText(context),
-              ],
-            ),
-          ),
+        child: buildFormBody(state, context),
+      ),
+    );
+  }
+
+  AppBar buildCustomAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: AppColors.transparent,
+      leading: Visibility(
+        visible: context.watch<RegisterCubit>().isLoading,
+        child: const CircularProgressIndicator(
+          color: AppColors.mainPrimary,
         ),
+      ),
+    );
+  }
+
+  Form buildFormBody(RegisterState state, BuildContext context) {
+    return Form(
+      key: formKey,
+      autovalidateMode: state is RegisterValidateState
+          ? (state.isValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled)
+          : AutovalidateMode.disabled,
+      child: buildScrollBody(context),
+    );
+  }
+
+  SingleChildScrollView buildScrollBody(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ImagePaths.safari.toWidget(context: context),
+          ConstSpace(
+            height: context.dynamicHeight(0.05),
+          ),
+          buildRegisterText(context),
+          const ConstSpace(),
+          buildUsernameTextfield(),
+          const ConstSpace(),
+          buildEmailTextfield(),
+          const ConstSpace(),
+          buildPasswordTextField(context),
+          const ConstSpace(),
+          buildRegisterButton(context),
+          const ConstSpace(),
+          buildBottomText(context),
+        ],
       ),
     );
   }
@@ -99,6 +114,16 @@ class _RegisterViewState extends State<RegisterView> {
             .headlineMedium
             ?.copyWith(color: AppColors.black),
       ),
+    );
+  }
+
+  ProductTextField buildUsernameTextfield() {
+    return ProductTextField(
+      controller: usernameController,
+      validator: (value) =>
+          (value ?? "").length >= 4 ? null : AppText.invalidUsername,
+      hintText: AppText.exampleUsername,
+      keyboardType: TextInputType.text,
     );
   }
 

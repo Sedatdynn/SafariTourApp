@@ -7,6 +7,8 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final GlobalKey<FormState> formKey;
+  final TextEditingController usernameController;
+
   final TextEditingController emailController;
   final TextEditingController passwordController;
   bool isRegisterFail = false;
@@ -14,7 +16,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool isVisible = true;
   RegisterService service = RegisterService(
       ProjectNetworkManager.instance.service, "/api/accounts/register");
-  RegisterCubit(this.formKey, this.emailController, this.passwordController,
+  RegisterCubit(this.formKey, this.usernameController, this.emailController,
+      this.passwordController,
       {required this.service})
       : super(RegisterInitial());
 
@@ -22,7 +25,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       changeLoadingView();
       bool? data = await service.postUserRegister({
-        "username": emailController.text.trim(),
+        "username": usernameController.text.trim(),
+        "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
       });
       if (data!) {

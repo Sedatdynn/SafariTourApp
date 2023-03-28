@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(GeneralService(
-          ProjectNetworkManager.instance.service, "/api/safari/tour"))
+          ProjectNetworkManager.instance.service, "/api/safari/all"))
         ..fetchAllItems(),
       child: MaterialApp(
         title: 'Flutter Demo',
