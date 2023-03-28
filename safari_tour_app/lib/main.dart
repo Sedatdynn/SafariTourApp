@@ -6,6 +6,7 @@ import 'package:safari_tour_app/product/service/project_manager.dart';
 
 import 'feature/home/cubit/home_cubit.dart';
 import 'feature/home/service/home_service.dart';
+import 'feature/splash/cubit/splash_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,10 +17,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(GeneralService(
-          ProjectNetworkManager.instance.service, "/api/safari/all"))
-        ..fetchAllItems(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => HomeCubit(GeneralService(
+                ProjectNetworkManager.instance.service, "/api/safari/all"))
+              ..fetchAllItems()),
+        BlocProvider(
+          create: (context) => SplashCubit(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,

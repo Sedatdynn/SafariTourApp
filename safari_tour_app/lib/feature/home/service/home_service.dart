@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:safari_tour_app/feature/home/model/home_model.dart';
+import 'package:safari_tour_app/product/widget/Text/wrongText/wrong_text_view.dart';
 
 import 'i_home_service.dart';
 
@@ -24,6 +25,6 @@ class GeneralService extends IGeneralService {
       throw e.toString();
     }
 
-    throw "Something went wrong";
+    throw const WrongText();
   }
 }

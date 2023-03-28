@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safari_tour_app/feature/home/view/home_view.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 
@@ -8,6 +10,7 @@ import '../../../product/const/duration/duration.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
 import '../../launch/view/launch.dart';
+import '../cubit/splash_cubit.dart';
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({Key? key}) : super(key: key);
@@ -18,23 +21,31 @@ class SplashScreenView extends StatefulWidget {
 class _SplashScreenViewState extends State<SplashScreenView> {
   bool _isVisible = false;
 
-  _SplashScreenViewState() {
-    buildFirstTimer();
+  @override
+  void initState() {
+    super.initState();
     buildSecondTimer();
+    context.read<SplashCubit>().checkToken();
   }
 
   Timer buildFirstTimer() {
-    return Timer(Durations.slow, () {
-      setState(() {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LaunchView()),
-            (route) => false);
-      });
+    return Timer(Durations.tooSlow, () {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomeView()),
+          (route) => false);
+    });
+  }
+
+  Timer buildLaunchTimer() {
+    return Timer(Durations.fast, () {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LaunchView()),
+          (route) => false);
     });
   }
 
   Timer buildSecondTimer() {
-    return Timer(Durations.tooFast, () {
+    return Timer(Durations.fast, () {
       setState(() {
         _isVisible = true;
       });
@@ -43,13 +54,15 @@ class _SplashScreenViewState extends State<SplashScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return buildStack(context);
-  }
-
-  Stack buildStack(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [buildContainer(), _bottomItems(context)],
+    return BlocListener<SplashCubit, SplashState>(
+      listener: (context, state) {
+        if (state is SplashSuccess) {
+          buildFirstTimer();
+        } else if (state is SplashFailure) {
+          buildLaunchTimer();
+        }
+      },
+      child: buildContainer(),
     );
   }
 
@@ -75,23 +88,11 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   AnimatedOpacity buildAnimatedOpacity() {
     return AnimatedOpacity(
       opacity: _isVisible ? 1.0 : 0,
-      duration: Durations.slow,
+      duration: Durations.fast,
       child: Center(
         child: ClipOval(
           child: ImagePaths.safari.toWidget(context: context),
         ),
-      ),
-    );
-  }
-
-  Positioned _bottomItems(BuildContext context) {
-    return Positioned(
-      bottom: context.dynamicHeight(0.05),
-      child: Row(
-        children: const [
-          // ImagePaths.flash.toWidget(),
-          // ImagePaths.tech.toWidget(),
-        ],
       ),
     );
   }

@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safari_tour_app/feature/launch/view/launch.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/const/theme/colors.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../product/const/border/border_radi.dart';
 import '../../../product/widget/Text/wrongText/wrong_text_view.dart';
@@ -37,6 +39,21 @@ class _HomeViewState extends State<HomeView> {
 
   Scaffold buildScaffoldBody(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove("access");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LaunchView(),
+                    ));
+              },
+              icon: const Icon(Icons.logout_outlined))
+        ],
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           height: context.height,
