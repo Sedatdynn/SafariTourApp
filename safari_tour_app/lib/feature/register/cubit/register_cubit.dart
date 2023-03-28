@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,13 +13,15 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final File? _image;
+
   bool isRegisterFail = false;
   bool isLoading = false;
   bool isVisible = true;
   RegisterService service = RegisterService(
       ProjectNetworkManager.instance.service, "/api/accounts/register");
   RegisterCubit(this.formKey, this.usernameController, this.emailController,
-      this.passwordController,
+      this.passwordController, this._image,
       {required this.service})
       : super(RegisterInitial());
 
@@ -28,6 +32,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         "username": usernameController.text.trim(),
         "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
+        "profile_image": _image,
       });
       if (data!) {
         emit(RegisterLoaded(data));

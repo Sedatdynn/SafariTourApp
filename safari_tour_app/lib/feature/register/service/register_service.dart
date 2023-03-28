@@ -17,6 +17,7 @@ class RegisterService extends IRegisterService {
         "username": registerData["username"],
         "email": registerData["email"],
         "password": registerData["password"],
+        "profile_image": registerData["profile_image"],
       });
       if (response.statusCode == HttpStatus.created) {
         SharedPreferences prefs = await SharedPreferences.getInstance();

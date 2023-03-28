@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:safari_tour_app/feature/login/view/login_view.dart';
 import 'package:safari_tour_app/feature/register/cubit/register_cubit.dart';
 import 'package:safari_tour_app/feature/register/service/register_service.dart';
@@ -21,6 +24,8 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  File? _image;
+
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -28,8 +33,8 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterCubit(
-          formKey, usernameController, emailController, passwordController,
+      create: (context) => RegisterCubit(formKey, usernameController,
+          emailController, passwordController, _image,
           service: RegisterService(ProjectNetworkManager.instance.service,
               "/api/accounts/register")),
       child: BlocConsumer<RegisterCubit, RegisterState>(
@@ -47,10 +52,13 @@ class _RegisterViewState extends State<RegisterView> {
 
   Scaffold buildMainBody(BuildContext context, RegisterState state) {
     return Scaffold(
-      appBar: buildCustomAppBar(context),
+      // appBar: buildCustomAppBar(context),
       body: Padding(
         padding: context.extremeAllPadding,
-        child: buildFormBody(state, context),
+        child: buildFormBody(
+          state,
+          context,
+        ),
       ),
     );
   }
@@ -68,7 +76,10 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Form buildFormBody(RegisterState state, BuildContext context) {
+  Form buildFormBody(
+    RegisterState state,
+    BuildContext context,
+  ) {
     return Form(
       key: formKey,
       autovalidateMode: state is RegisterValidateState
@@ -76,19 +87,69 @@ class _RegisterViewState extends State<RegisterView> {
               ? AutovalidateMode.always
               : AutovalidateMode.disabled)
           : AutovalidateMode.disabled,
-      child: buildScrollBody(context),
+      child: buildScrollBody(
+        context,
+      ),
     );
   }
 
-  SingleChildScrollView buildScrollBody(BuildContext context) {
+  SingleChildScrollView buildScrollBody(
+    BuildContext context,
+  ) {
+    Future getImage(ImageSource source) async {
+      final xFileImage = await ImagePicker().pickImage(source: source);
+
+      if (xFileImage == null) return;
+
+      final imageTemporary = File(xFileImage.path);
+      setState(() {
+        this._image = imageTemporary;
+      });
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: [
-          ImagePaths.safari.toWidget(context: context),
-          ConstSpace(
-            height: context.dynamicHeight(0.05),
-          ),
+          ConstSpace(height: context.dynamicHeight(0.05)),
           buildRegisterText(context),
+          const ConstSpace(),
+          ClipOval(
+            child: _image != null
+                ? Image.file(
+                    _image!,
+                    height: 160,
+                  )
+                : ImagePaths.safari.toWidget(context: context),
+          ),
+          Padding(
+            padding: context.lowAllPadding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: ActiveButton(
+                    label: "Pick from gallery",
+                    onPressed: () {
+                      getImage(ImageSource.gallery);
+                    },
+                    buttonColor: AppColors.white,
+                    textColor: AppColors.button,
+                  ),
+                ),
+                SizedBox(
+                  width: context.dynamicWidth(0.02),
+                ),
+                Expanded(
+                  child: ActiveButton(
+                    label: "Pick from camera",
+                    onPressed: () {
+                      getImage(ImageSource.camera);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           const ConstSpace(),
           buildUsernameTextfield(),
           const ConstSpace(),

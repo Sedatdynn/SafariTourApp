@@ -5,11 +5,16 @@ import '../../../enums/images/image_enums.dart';
 
 extension ImagePathExtension on ImagePaths {
   String get rawValue => "assets/png/$name.png";
-  Widget toWidget({BoxFit? boxFit, required BuildContext context}) {
+  Widget toWidget(
+      {BoxFit? boxFit,
+      Color? color,
+      double? height,
+      required BuildContext context}) {
     return Image.asset(
       rawValue,
-      height: context.dynamicHeight(0.3),
+      height: height ?? context.dynamicHeight(0.3),
       fit: boxFit ?? BoxFit.contain,
+      color: color,
     );
   }
 }

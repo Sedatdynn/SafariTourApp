@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/home/view/home_view.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
-import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 
 import '../../../product/const/duration/duration.dart';
 import '../../../product/const/theme/colors.dart';

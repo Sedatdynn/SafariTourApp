@@ -1,1 +1,1 @@
-enum ImagePaths { safari, welcome }
+enum ImagePaths { safari, welcome, user }
