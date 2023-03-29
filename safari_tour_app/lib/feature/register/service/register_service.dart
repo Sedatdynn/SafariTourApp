@@ -19,7 +19,7 @@ class RegisterService extends IRegisterService {
         "email": registerData["email"],
         "password": registerData["password"],
         "profile_image":
-            await MultipartFile.fromFile(registerData["profile_image"].path),
+            await MultipartFile.fromFile(registerData["profile_image"]),
       });
 
       final response = await dio.post(item, data: formData);

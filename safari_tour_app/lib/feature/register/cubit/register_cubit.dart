@@ -25,14 +25,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       {required this.service})
       : super(RegisterInitial());
 
-  Future<void> postUserRegisterModel() async {
+  Future<void> postUserRegisterModel(File? image) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       changeLoadingView();
       bool? data = await service.postUserRegister({
         "username": usernameController.text.trim(),
         "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
-        "profile_image": image,
+        "profile_image": image?.path,
       });
       if (data!) {
         emit(RegisterLoaded(data));

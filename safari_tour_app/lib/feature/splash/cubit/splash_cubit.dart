@@ -9,7 +9,6 @@ class SplashCubit extends Cubit<SplashState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String? token = prefs.getString("access");
-    print("token+ " + token.toString());
     if (token != null) {
       emit(SplashSuccess(token: token));
     } else {

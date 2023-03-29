@@ -1,18 +1,22 @@
-import 'package:json_annotation/json_annotation.dart';
-part "register_request_model.g.dart";
+// import 'dart:io';
 
-@JsonSerializable()
-class RegisterRequestModel {
-  String? username;
-  String? password;
+// import 'package:json_annotation/json_annotation.dart';
+// part "register_request_model.g.dart";
 
-  RegisterRequestModel({this.username, this.password});
+// @JsonSerializable()
+// class RegisterRequestModel {
+//   String? email;
+//   String? username;
+//   String? password;
+//   File? profile_image;
 
-  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) {
-    return _$RegisterRequestModelFromJson(json);
-  }
+//   RegisterRequestModel({this.username, this.password});
 
-  Map<String, dynamic> toJson() {
-    return _$RegisterRequestModelToJson(this);
-  }
-}
+//   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) {
+//     return _$RegisterRequestModelFromJson(json);
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     return _$RegisterRequestModelToJson(this);
+//   }
+// }

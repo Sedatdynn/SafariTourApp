@@ -12,16 +12,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> fetchAllItems() async {
     final a = (await generalService.fetchTourItems()) ?? [];
-    print("//-----------" + a[0].price.toString());
-    // print("//-----------" +
-    //         a[0]
-    //             .tourData
-    //             ?.overview
-    //             ?.tourFeatures?[1]
-    //             .feature0
-    //             ?.title
-    //             .toString() ??
-    //     "sss");
 
     try {
       allItems = a;

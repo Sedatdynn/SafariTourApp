@@ -60,8 +60,6 @@ class _HomeViewState extends State<HomeView> {
           child: ListView.builder(
             itemCount: context.read<HomeCubit>().allItems.length,
             itemBuilder: (context, index) {
-              print(
-                  "-----${context.read<HomeCubit>().allItems[index].tour_data?.overview?.route_data}");
               return Container(
                 margin: context.lowAllPadding,
                 padding: context.lowAllPadding,
