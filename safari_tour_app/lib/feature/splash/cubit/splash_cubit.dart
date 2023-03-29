@@ -10,6 +10,8 @@ class SplashCubit extends Cubit<SplashState> {
 
     final String? token = prefs.getString("access");
     if (token != null) {
+      // api/accounts/profile token ile post request
+      // 200 status ise home page'e aktar
       emit(SplashSuccess(token: token));
     } else {
       emit(SplashFailure());

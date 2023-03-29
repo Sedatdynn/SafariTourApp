@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:safari_tour_app/feature/home/model/home_model.dart';
 
+import '../model/tour_model.dart';
+
 abstract class IGeneralService {
   IGeneralService(
     this.dio,
@@ -9,5 +11,5 @@ abstract class IGeneralService {
   final Dio dio;
   String item;
 
-  Future<List<Results>?> fetchTourItems();
+  Future<List<Tour>?> fetchTourItems();
 }

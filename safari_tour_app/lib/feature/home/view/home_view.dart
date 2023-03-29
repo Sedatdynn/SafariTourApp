@@ -15,7 +15,9 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({
+    Key? key,
+  }) : super(key: key);
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -61,25 +63,25 @@ class _HomeViewState extends State<HomeView> {
             itemCount: context.read<HomeCubit>().allItems.length,
             itemBuilder: (context, index) {
               return Container(
-                margin: context.lowAllPadding,
-                padding: context.lowAllPadding,
+                margin: context.extremeAllPadding,
+                padding: context.extremeAllPadding,
                 decoration: const BoxDecoration(
                     color: AppColors.button,
                     borderRadius: BorderRadi.lowCircular),
-                height: context.dynamicHeight(0.4),
+                height: context.dynamicHeight(0.3),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.network(context
-                        .read<HomeCubit>()
-                        .allItems[index]
-                        .imageCover
-                        .toString()),
-                    Text(
-                      context.read<HomeCubit>().allItems[index].name ?? "",
-                      style:
-                          TextStyle(color: AppColors.mainPrimary, fontSize: 35),
-                    ),
+                    // Image.network(context
+                    //     .read<HomeCubit>()
+                    //     .allItems[index]
+                    //     .imageCover
+                    //     .toString()),
+                    // Text(
+                    //   context.read<HomeCubit>().allItems[index].name ?? "",
+                    //   style:
+                    //       TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                    // ),
                     Text(
                       context.read<HomeCubit>().allItems[0].price.toString(),
                       style:
@@ -87,14 +89,12 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     Text(
                       context
-                              .read<HomeCubit>()
-                              .allItems[index]
-                              .tour_data
-                              ?.overview
-                              ?.route_data?[0]
-                              .day_0
-                              ?.days ??
-                          "",
+                          .read<HomeCubit>()
+                          .allItems[index]
+                          .tourData
+                          .tourFeatures[0]
+                          .length
+                          .toString(),
                       style:
                           TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                     ),
