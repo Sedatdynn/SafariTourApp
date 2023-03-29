@@ -13,7 +13,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final File? _image;
+  File? image;
 
   bool isRegisterFail = false;
   bool isLoading = false;
@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterService service = RegisterService(
       ProjectNetworkManager.instance.service, "/api/accounts/register");
   RegisterCubit(this.formKey, this.usernameController, this.emailController,
-      this.passwordController, this._image,
+      this.passwordController, this.image,
       {required this.service})
       : super(RegisterInitial());
 
@@ -32,7 +32,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         "username": usernameController.text.trim(),
         "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
-        "profile_image": _image,
+        "profile_image": image,
       });
       if (data!) {
         emit(RegisterLoaded(data));

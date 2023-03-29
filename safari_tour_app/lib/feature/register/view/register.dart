@@ -51,6 +51,8 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Scaffold buildMainBody(BuildContext context, RegisterState state) {
+    debugPrint("````````````" + _image.toString());
+
     return Scaffold(
       // appBar: buildCustomAppBar(context),
       body: Padding(
@@ -103,7 +105,8 @@ class _RegisterViewState extends State<RegisterView> {
 
       final imageTemporary = File(xFileImage.path);
       setState(() {
-        this._image = imageTemporary;
+        _image = imageTemporary;
+        debugPrint("```````setState`````" + _image.toString());
       });
     }
 
@@ -166,6 +169,8 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Align buildRegisterText(BuildContext context) {
+    debugPrint("````````````" + _image.toString());
+
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
@@ -220,6 +225,8 @@ class _RegisterViewState extends State<RegisterView> {
         onPressed: context.watch<RegisterCubit>().isLoading
             ? null
             : () {
+                debugPrint("`````ONPRESSEDD```````" + _image.toString());
+
                 context.read<RegisterCubit>().postUserRegisterModel();
               },
       ),

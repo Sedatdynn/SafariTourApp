@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../login/model/login_response_model.dart';
@@ -13,12 +14,15 @@ class RegisterService extends IRegisterService {
     Map<String, dynamic> registerData,
   ) async {
     try {
-      final response = await dio.post(item, data: {
+      final formData = FormData.fromMap({
         "username": registerData["username"],
         "email": registerData["email"],
         "password": registerData["password"],
-        "profile_image": registerData["profile_image"],
+        "profile_image":
+            await MultipartFile.fromFile(registerData["profile_image"].path),
       });
+
+      final response = await dio.post(item, data: formData);
       if (response.statusCode == HttpStatus.created) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final jsonBody = response.data;
