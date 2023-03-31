@@ -7,7 +7,7 @@ class SplashService extends ISplashService {
   SplashService(super.dio, super.item);
 
   @override
-  Future<UserPrfoileResponse?> postUserToken(
+  Future<UserPrfoileResponse?> checkUserToken(
     Map<String, dynamic> accessToken,
   ) async {
     try {

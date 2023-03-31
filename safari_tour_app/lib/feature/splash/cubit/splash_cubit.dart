@@ -17,9 +17,9 @@ class SplashCubit extends Cubit<SplashState> {
     final String? token = prefs.getString("access");
     if (token != null) {
       try {
-        dynamic user_info = await service.postUserToken({"token": token});
-        if (user_info != null) {
-          currentUser = user_info;
+        dynamic userInfo = await service.checkUserToken({"token": token});
+        if (userInfo != null) {
+          currentUser = userInfo;
           emit(SplashSuccess(token: token));
         } else {
           emit(SplashFailure());

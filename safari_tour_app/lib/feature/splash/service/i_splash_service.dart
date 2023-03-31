@@ -6,5 +6,5 @@ abstract class ISplashService {
   final Dio dio;
   String item;
 
-  Future<UserPrfoileResponse?> postUserToken(Map<String, dynamic> accessToken);
+  Future<UserPrfoileResponse?> checkUserToken(Map<String, dynamic> accessToken);
 }

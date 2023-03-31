@@ -6,6 +6,7 @@ import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 import 'package:safari_tour_app/product/service/project_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
@@ -13,6 +14,7 @@ import '../../../product/widget/button/active_button.dart';
 import '../../../product/widget/sizedBox/sized_box.dart';
 import '../../../product/widget/textfield/auth_textfield.dart';
 import '../../home/view/home_view.dart';
+import '../../splash/service/splash_service.dart';
 import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
 
@@ -182,8 +184,16 @@ class _LoginViewState extends State<LoginView> {
 }
 
 extension LoginCompleteExtension on LoginComplete {
-  void navigate(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeView()));
+  void navigate(BuildContext context) async {
+    SplashService service = SplashService(
+        ProjectNetworkManager.instance.service, "/api/accounts/profile");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String? token = prefs.getString("access");
+    dynamic user = await service.checkUserToken({"token": token});
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomeView(
+              currentUser: user,
+            )));
   }
 }
