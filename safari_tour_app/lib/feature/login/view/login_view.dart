@@ -184,6 +184,6 @@ class _LoginViewState extends State<LoginView> {
 extension LoginCompleteExtension on LoginComplete {
   void navigate(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const HomeView()));
+        .push(MaterialPageRoute(builder: (context) => HomeView()));
   }
 }
