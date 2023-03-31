@@ -64,8 +64,6 @@ class _RegisterViewState extends State<RegisterView> {
 
   AppBar buildCustomAppBar(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: AppColors.transparent,
       leading: Visibility(
         visible: context.watch<RegisterCubit>().isLoading,
         child: const CircularProgressIndicator(

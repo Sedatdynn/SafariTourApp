@@ -51,8 +51,6 @@ class _LoginViewState extends State<LoginView> {
 
   AppBar buildCustomAppBar(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: AppColors.transparent,
       leading: Visibility(
         visible: context.watch<LoginCubit>().isLoading,
         child: const CircularProgressIndicator(
