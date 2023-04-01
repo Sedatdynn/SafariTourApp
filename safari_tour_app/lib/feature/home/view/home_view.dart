@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/launch/view/launch.dart';
+import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
 import 'package:safari_tour_app/product/const/theme/colors.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
@@ -17,7 +18,9 @@ import '../cubit/home_state.dart';
 class HomeView extends StatefulWidget {
   const HomeView({
     Key? key,
+    this.currentUser,
   }) : super(key: key);
+  final UserPrfoileResponse? currentUser;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -82,6 +85,11 @@ class _HomeViewState extends State<HomeView> {
                     //   style:
                     //       TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                     // ),
+                    Text(
+                      widget.currentUser!.username.toString(),
+                      style:
+                          TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                    ),
                     Text(
                       context.read<HomeCubit>().allItems[0].price.toString(),
                       style:

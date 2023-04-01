@@ -30,7 +30,9 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   Timer buildFirstTimer() {
     return Timer(Durations.tooSlow, () {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const HomeView()),
+          MaterialPageRoute(
+              builder: (context) => HomeView(
+                  currentUser: context.read<SplashCubit>().currentUser)),
           (route) => false);
     });
   }
