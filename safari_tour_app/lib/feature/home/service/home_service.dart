@@ -9,13 +9,12 @@ import 'i_home_service.dart';
 class GeneralService extends IGeneralService {
   GeneralService(
     super.dio,
-    super.item,
   );
 
   @override
   Future<List<Tour>?> fetchTourItems() async {
     try {
-      final response = await dio.get("/api/safari/all");
+      final response = await dio.get(homePath);
       var resData = response.data;
       if (response.statusCode == HttpStatus.ok) {
         List<Tour>? results = HomeModel.fromJson(resData).results;

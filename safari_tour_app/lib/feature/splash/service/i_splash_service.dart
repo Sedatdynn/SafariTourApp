@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
+
+import '../../../product/enums/requestsPath/accounts_requests.dart';
+import '../../../product/extension/requestsPath/accounts_requests.dart';
+import '../model/user_response_model.dart';
 
 abstract class ISplashService {
-  ISplashService(this.dio, this.item);
+  ISplashService(this.dio);
   final Dio dio;
-  String item;
+  final profilePath = IAccountPath.profile.rawValue;
 
-  Future<UserPrfoileResponse?> checkUserToken(Map<String, dynamic> accessToken);
+  Future<UserProfileResponse?> checkUserToken(Map<String, dynamic> accessToken);
 }

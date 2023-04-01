@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/login/service/login_service.dart';
-import 'package:safari_tour_app/feature/register/view/register.dart';
-import 'package:safari_tour_app/product/const/text/app_text.dart';
-import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
-import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
-import 'package:safari_tour_app/product/service/project_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../product/const/text/app_text.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
+import '../../../product/extension/images/png/png_images.dart';
+import '../../../product/extension/loginComplete/login_complete_extension.dart';
+import '../../../product/extension/responsive/responsive.dart';
+import '../../../product/service/project_manager.dart';
 import '../../../product/widget/button/active_button.dart';
 import '../../../product/widget/sizedBox/sized_box.dart';
 import '../../../product/widget/textfield/auth_textfield.dart';
-import '../../home/view/home_view.dart';
-import '../../splash/service/splash_service.dart';
+import '../../register/view/register.dart';
 import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
+import '../service/login_service.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -33,8 +31,7 @@ class _LoginViewState extends State<LoginView> {
     return BlocProvider(
       create: (context) => LoginCubit(
           formKey, usernameController, passwordController,
-          service: LoginService(
-              ProjectNetworkManager.instance.service, "/api/accounts/login")),
+          service: LoginService(ProjectNetworkManager.instance.service)),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) async {
           if (state is LoginComplete) {
@@ -180,20 +177,5 @@ class _LoginViewState extends State<LoginView> {
         ),
       ],
     );
-  }
-}
-
-extension LoginCompleteExtension on LoginComplete {
-  void navigate(BuildContext context) async {
-    SplashService service = SplashService(
-        ProjectNetworkManager.instance.service, "/api/accounts/profile");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String? token = prefs.getString("access");
-    dynamic user = await service.checkUserToken({"token": token});
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => HomeView(
-              currentUser: user,
-            )));
   }
 }

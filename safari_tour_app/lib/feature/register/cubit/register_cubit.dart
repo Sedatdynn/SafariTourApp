@@ -18,8 +18,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool isRegisterFail = false;
   bool isLoading = false;
   bool isVisible = true;
-  RegisterService service = RegisterService(
-      ProjectNetworkManager.instance.service, "/api/accounts/register");
+  RegisterService service =
+      RegisterService(ProjectNetworkManager.instance.service);
   RegisterCubit(this.formKey, this.usernameController, this.emailController,
       this.passwordController, this.image,
       {required this.service})

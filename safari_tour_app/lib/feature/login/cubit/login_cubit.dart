@@ -8,8 +8,7 @@ class LoginCubit extends Cubit<LoginState> {
   final GlobalKey<FormState> formKey;
   final TextEditingController usernameController;
   final TextEditingController passwordController;
-  LoginService service = LoginService(
-      ProjectNetworkManager.instance.service, "/api/accounts/login");
+  LoginService service = LoginService(ProjectNetworkManager.instance.service);
   bool isLoginFail = false;
   bool isLoading = false;
   bool isVisible = true;

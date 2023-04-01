@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:safari_tour_app/feature/home/model/home_model.dart';
 
+import '../../../product/enums/requestsPath/safari_requests.dart';
+import '../../../product/extension/requestsPath/safari_requests.dart';
 import '../model/tour_model.dart';
 
 abstract class IGeneralService {
-  IGeneralService(
-    this.dio,
-    this.item,
-  );
   final Dio dio;
-  String item;
+  IGeneralService(this.dio);
+  final homePath = ISafariPath.all.rawValue;
 
   Future<List<Tour>?> fetchTourItems();
 }

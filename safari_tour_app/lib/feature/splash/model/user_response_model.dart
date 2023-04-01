@@ -1,11 +1,11 @@
-class UserPrfoileResponse {
+class UserProfileResponse {
   String? username;
   String? email;
   String? profileImage;
 
-  UserPrfoileResponse({this.username, this.email, this.profileImage});
+  UserProfileResponse({this.username, this.email, this.profileImage});
 
-  UserPrfoileResponse.fromJson(Map<String, dynamic> json) {
+  UserProfileResponse.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     email = json['email'];
     profileImage = json['profile_image'];

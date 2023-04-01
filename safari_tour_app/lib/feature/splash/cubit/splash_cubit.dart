@@ -8,9 +8,8 @@ part 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashInitial());
-  late UserPrfoileResponse currentUser;
-  SplashService service = SplashService(
-      ProjectNetworkManager.instance.service, "/api/accounts/profile");
+  late UserProfileResponse currentUser;
+  SplashService service = SplashService(ProjectNetworkManager.instance.service);
   Future<void> checkToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -25,7 +24,6 @@ class SplashCubit extends Cubit<SplashState> {
           emit(SplashFailure());
         }
       } catch (e) {
-        // exception veya null dönerse olursa token süresi dolmuş demektir.
         emit(SplashFailure());
       }
     } else {

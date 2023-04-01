@@ -35,8 +35,7 @@ class _RegisterViewState extends State<RegisterView> {
     return BlocProvider(
       create: (context) => RegisterCubit(formKey, usernameController,
           emailController, passwordController, _image,
-          service: RegisterService(ProjectNetworkManager.instance.service,
-              "/api/accounts/register")),
+          service: RegisterService(ProjectNetworkManager.instance.service)),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) async {
           if (state is RegisterLoaded) {

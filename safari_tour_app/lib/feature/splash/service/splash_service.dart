@@ -4,23 +4,21 @@ import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
 import 'i_splash_service.dart';
 
 class SplashService extends ISplashService {
-  SplashService(super.dio, super.item);
+  SplashService(super.dio);
 
   @override
-  Future<UserPrfoileResponse?> checkUserToken(
+  Future<UserProfileResponse?> checkUserToken(
     Map<String, dynamic> accessToken,
   ) async {
     try {
       final response = await dio.get(
-        item,
+        profilePath,
         options: Options(
-          headers: {
-            'Authorization': 'Bearer ${accessToken['token']}',
-          },
+          headers: {'Authorization': 'Bearer ${accessToken['token']}'},
         ),
       );
       if (response.statusCode == HttpStatus.ok) {
-        return UserPrfoileResponse.fromJson(response.data);
+        return UserProfileResponse.fromJson(response.data);
       }
       return null;
     } catch (e) {

@@ -6,14 +6,14 @@ import '../model/login_response_model.dart';
 import 'i_login_service.dart';
 
 class LoginService extends ILoginService {
-  LoginService(super.dio, super.item);
+  LoginService(super.dio);
 
   @override
   Future<bool?> postUserLogin(
     Map<String, dynamic> loginData,
   ) async {
     try {
-      final response = await dio.post(item, data: {
+      final response = await dio.post(loginPath, data: {
         "username": loginData["username"],
         "password": loginData["password"]
       });

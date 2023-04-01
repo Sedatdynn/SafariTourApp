@@ -7,7 +7,7 @@ import '../../login/model/login_response_model.dart';
 import 'i_register_service.dart';
 
 class RegisterService extends IRegisterService {
-  RegisterService(super.dio, super.item);
+  RegisterService(super.dio);
 
   @override
   Future<bool?> postUserRegister(
@@ -22,7 +22,7 @@ class RegisterService extends IRegisterService {
             await MultipartFile.fromFile(registerData["profile_image"]),
       });
 
-      final response = await dio.post(item, data: formData);
+      final response = await dio.post(registerPath, data: formData);
       if (response.statusCode == HttpStatus.created) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final jsonBody = response.data;
