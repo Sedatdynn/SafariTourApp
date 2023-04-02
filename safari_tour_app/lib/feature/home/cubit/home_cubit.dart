@@ -25,6 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeItemsLoaded(allItems));
       }
       allPageItems = allItems;
+      emit(HomeItemsLoaded(allItems));
     } catch (e) {
       emit(HomeError(allItems.toString()));
     }
@@ -33,21 +34,20 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchAllItemPaging() async {
     _changePagingLoading();
     emit(HomeItemsLoaded(allPageItems));
+
     if (isPagingLoading) {
       return;
     }
-    try {
-      _pageNumber += 1;
-      final allItems = await generalService.fetchTourItems(page: _pageNumber);
+    _pageNumber += 1;
+    final allItems = await generalService.fetchTourItems(page: _pageNumber);
+    _changePagingLoading();
 
-      if (allItems == null) {
-        isPagingDone = true;
-        // isPagingLoading = false;
-        return;
-      }
-      _changePagingLoading();
-      allPageItems.addAll(allItems);
-    } catch (e) {}
+    if (allItems == null) {
+      isPagingDone = true;
+      return;
+    }
+
+    allPageItems.addAll(allItems);
 
     emit(HomeItemsLoaded(allPageItems));
   }

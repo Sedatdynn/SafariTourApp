@@ -37,7 +37,8 @@ class _HomeViewState extends State<HomeView> {
               if (notification.metrics.pixels ==
                   notification.metrics.maxScrollExtent) {
                 final notificationContext = notification.context;
-                if (notificationContext != null) {
+                if (notificationContext != null &&
+                    !context.read<HomeCubit>().isPagingDone) {
                   notificationContext.read<HomeCubit>().fetchAllItemPaging();
                 }
               }
@@ -45,14 +46,6 @@ class _HomeViewState extends State<HomeView> {
             },
             child: Scaffold(
               appBar: AppBar(
-                leading: context.watch<HomeCubit>().isPagingLoading
-                    ? Padding(
-                        padding: context.midAllPadding,
-                        child: const CircularProgressIndicator(
-                          color: AppColors.button,
-                        ),
-                      )
-                    : null,
                 actions: [
                   IconButton(
                       onPressed: () async {
