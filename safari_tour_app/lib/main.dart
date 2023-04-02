@@ -4,6 +4,7 @@ import 'package:safari_tour_app/core/theme/theme.dart';
 import 'package:safari_tour_app/feature/splash/view/splash_view.dart';
 import 'package:safari_tour_app/product/service/project_manager.dart';
 
+import 'core/provider/multi_bloc_provider.dart';
 import 'feature/home/cubit/home_cubit.dart';
 import 'feature/home/service/home_service.dart';
 import 'feature/splash/cubit/splash_cubit.dart';
@@ -17,16 +18,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) => HomeCubit(
-                GeneralService(ProjectNetworkManager.instance.service))
-              ..fetchAllItems()),
-        BlocProvider(
-          create: (context) => SplashCubit(),
-        ),
-      ],
+    return MultiBlocProviderWidget(
+      homeCubit:
+          HomeCubit(GeneralService(ProjectNetworkManager.instance.service))
+            ..fetchAllItems(),
+      splashCubit: SplashCubit(),
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,

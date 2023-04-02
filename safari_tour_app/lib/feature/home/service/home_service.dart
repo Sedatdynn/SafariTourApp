@@ -27,7 +27,6 @@ class GeneralService extends IGeneralService {
         return results;
       }
     } catch (e) {
-      print("**daha fazla oge bulunmamaktadir!!!!!!!!!!!!");
       return null;
     }
 

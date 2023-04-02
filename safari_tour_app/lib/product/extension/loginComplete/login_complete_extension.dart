@@ -14,7 +14,8 @@ extension LoginCompleteExtension on LoginComplete {
 
     final String? token = prefs.getString("access");
     dynamic user = await service.checkUserToken({"token": token});
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => HomeView(currentUser: user)));
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => HomeView(currentUser: user)),
+        (route) => false);
   }
 }

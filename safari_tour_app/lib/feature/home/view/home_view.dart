@@ -135,14 +135,6 @@ class _HomeViewState extends State<HomeView> {
   Scaffold buildScaffoldBody(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: context.watch<HomeCubit>().isPagingLoading
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).backgroundColor,
-                ),
-              )
-            : null,
         actions: [
           IconButton(
               onPressed: () async {
