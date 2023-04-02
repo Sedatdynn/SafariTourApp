@@ -32,7 +32,105 @@ class _HomeViewState extends State<HomeView> {
         if (state is HomeInitial || state is HomeLoading) {
           return const LoadingView();
         } else if (state is HomeItemsLoaded) {
-          return buildScaffoldBody(context);
+          return NotificationListener(
+            onNotification: (ScrollNotification notification) {
+              if (notification.metrics.pixels ==
+                  notification.metrics.maxScrollExtent) {
+                final notificationContext = notification.context;
+                if (notificationContext != null) {
+                  notificationContext.read<HomeCubit>().fetchAllItemPaging();
+                }
+              }
+              return true;
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                leading: context.watch<HomeCubit>().isPagingLoading
+                    ? Padding(
+                        padding: context.midAllPadding,
+                        child: const CircularProgressIndicator(
+                          color: AppColors.button,
+                        ),
+                      )
+                    : null,
+                actions: [
+                  IconButton(
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.remove("access");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LaunchView(),
+                            ));
+                      },
+                      icon: const Icon(Icons.logout_outlined))
+                ],
+              ),
+              body: SingleChildScrollView(
+                child: SizedBox(
+                  height: context.dynamicHeight(0.85),
+                  child: ListView.builder(
+                    itemCount: context.read<HomeCubit>().allItems.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: context.extremeAllPadding,
+                        padding: context.extremeAllPadding,
+                        decoration: const BoxDecoration(
+                            color: AppColors.button,
+                            borderRadius: BorderRadi.lowCircular),
+                        height: context.dynamicHeight(0.3),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              index.toString(),
+                              style: TextStyle(
+                                  color: AppColors.mainPrimary, fontSize: 35),
+                            ),
+                            Text(
+                              widget.currentUser!.username.toString(),
+                              style: TextStyle(
+                                  color: AppColors.mainPrimary, fontSize: 12),
+                            ),
+                            Text(
+                              context
+                                  .read<HomeCubit>()
+                                  .allItems[index]
+                                  .price
+                                  .toString(),
+                              style: TextStyle(
+                                  color: AppColors.mainPrimary, fontSize: 16),
+                            ),
+                            Text(
+                              context
+                                  .read<HomeCubit>()
+                                  .allItems[index]
+                                  .name
+                                  .toString(),
+                              style: TextStyle(
+                                  color: AppColors.mainPrimary, fontSize: 25),
+                            )
+                            // Text(
+                            //   context
+                            //       .read<HomeCubit>()
+                            //       .allItems[index]
+                            //       .tourData
+                            //       .tourFeatures[0]
+                            //       .toString(),
+                            //   style: TextStyle(
+                            //       color: AppColors.mainPrimary, fontSize: 35),
+                            //),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          );
         } else if (state is HomeError) {
           return HomeErrorView(state);
         }
@@ -44,6 +142,14 @@ class _HomeViewState extends State<HomeView> {
   Scaffold buildScaffoldBody(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: context.watch<HomeCubit>().isPagingLoading
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).backgroundColor,
+                ),
+              )
+            : null,
         actions: [
           IconButton(
               onPressed: () async {
@@ -74,16 +180,6 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Image.network(context
-                    //     .read<HomeCubit>()
-                    //     .allItems[index]
-                    //     .imageCover
-                    //     .toString()),
-                    // Text(
-                    //   context.read<HomeCubit>().allItems[index].name ?? "",
-                    //   style:
-                    //       TextStyle(color: AppColors.mainPrimary, fontSize: 35),
-                    // ),
                     Text(
                       widget.currentUser!.username.toString(),
                       style:

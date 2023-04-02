@@ -9,5 +9,5 @@ abstract class IGeneralService {
   IGeneralService(this.dio);
   final homePath = ISafariPath.all.rawValue;
 
-  Future<List<Tour>?> fetchTourItems();
+  Future<List<Tour>?> fetchTourItems({int page = 0});
 }

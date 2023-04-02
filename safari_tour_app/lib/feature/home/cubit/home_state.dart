@@ -1,11 +1,14 @@
-import '../model/home_model.dart';
 import '../model/tour_model.dart';
 
 abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
-class HomeLoading extends HomeState {}
+class HomeLoading extends HomeState {
+  final bool isLoading;
+
+  HomeLoading(this.isLoading);
+}
 
 class HomeItemsLoaded extends HomeState {
   final List<Tour> items;
