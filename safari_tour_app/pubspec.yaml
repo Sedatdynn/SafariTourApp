@@ -28,23 +28,24 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  build_runner: ^2.3.3
   cupertino_icons: ^1.0.2
   dio: ^5.0.3
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_svg: ^2.0.4
   image_picker: ^0.8.7
   json_annotation: ^4.8.0
-  json_serializable: ^6.6.1
   path_provider: ^2.0.14
   shared_preferences: ^2.0.20
 
 dev_dependencies:
+  build_runner: ^2.3.3
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.6.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
