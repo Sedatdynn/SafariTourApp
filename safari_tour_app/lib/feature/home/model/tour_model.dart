@@ -24,9 +24,8 @@ class Tour {
     tourData = TourData.fromJson(json['tour_data']);
     inclusionsData = InclusionsData.fromJson(json['inclusions_data']);
     gettingThereData = List<String>.from(json['getting_there_data']);
-    dayByDay = List<Map<String, DayByDayData>>.from(json['day_by_day'].map(
-        (day) => Map<String, DayByDayData>.from(
-            day.map((k, v) => MapEntry(k, DayByDayData.fromJson(v))))));
+    dayByDay = List<Map<String, DayByDayData>>.from(json['day_by_day']
+        .map((day) => Map<String, DayByDayData>.from(day.map((k, v) => MapEntry(k, DayByDayData.fromJson(v))))));
   }
 }
 
@@ -39,19 +38,14 @@ class TourData {
 
   TourData.fromJson(Map<String, dynamic> json) {
     routeData = List<Map<String, RouteData>>.from(json['overview']['route_data']
-        .map((route) => Map<String, RouteData>.from(
-            route.map((k, v) => MapEntry(k, RouteData.fromJson(v))))));
-    tourFeatures = List<Map<String, TourFeature>>.from(json['overview']
-            ['tour_features']
-        .map((feature) => Map<String, TourFeature>.from(
-            feature.map((k, v) => MapEntry(k, TourFeature.fromJson(v))))));
+        .map((route) => Map<String, RouteData>.from(route.map((k, v) => MapEntry(k, RouteData.fromJson(v))))));
+    tourFeatures = List<Map<String, TourFeature>>.from(json['overview']['tour_features']
+        .map((feature) => Map<String, TourFeature>.from(feature.map((k, v) => MapEntry(k, TourFeature.fromJson(v))))));
     routeDescription = json['overview']['route_description'];
-    accommodationAndMeals = List<Map<String, AccommodationAndMeal>>.from(
-        json['overview']['accomodaton_and_meals'].map((accommodation) =>
-            Map<String, AccommodationAndMeal>.from(accommodation.map(
-                (k, v) => MapEntry(k, AccommodationAndMeal.fromJson(v))))));
-    activitiesAndTransportation =
-        List<String>.from(json['overview']['activities_and_transportation']);
+    accommodationAndMeals = List<Map<String, AccommodationAndMeal>>.from(json['overview']['accomodaton_and_meals'].map(
+        (accommodation) => Map<String, AccommodationAndMeal>.from(
+            accommodation.map((k, v) => MapEntry(k, AccommodationAndMeal.fromJson(v))))));
+    activitiesAndTransportation = List<String>.from(json['overview']['activities_and_transportation']);
   }
 }
 

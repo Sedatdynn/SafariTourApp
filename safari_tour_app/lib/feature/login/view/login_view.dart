@@ -29,8 +29,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(
-          formKey, usernameController, passwordController,
+      create: (context) => LoginCubit(formKey, usernameController, passwordController,
           service: LoginService(ProjectNetworkManager.instance.service)),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) async {
@@ -63,9 +62,7 @@ class _LoginViewState extends State<LoginView> {
     return Form(
       key: formKey,
       autovalidateMode: state is LoginValidateState
-          ? (state.isValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled)
+          ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
           : AutovalidateMode.disabled,
       child: Padding(
         padding: context.extremeAllPadding,
@@ -101,10 +98,7 @@ class _LoginViewState extends State<LoginView> {
       alignment: Alignment.centerLeft,
       child: Text(
         AppText.login,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(color: AppColors.black),
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.black),
       ),
     );
   }
@@ -112,8 +106,7 @@ class _LoginViewState extends State<LoginView> {
   ProductTextField buildUsernameTextfield() {
     return ProductTextField(
       controller: usernameController,
-      validator: (value) =>
-          (value ?? "").length >= 4 ? null : AppText.invalidUsername,
+      validator: (value) => (value ?? "").length >= 4 ? null : AppText.invalidUsername,
       hintText: AppText.exampleUsername,
       keyboardType: TextInputType.text,
     );
@@ -122,8 +115,7 @@ class _LoginViewState extends State<LoginView> {
   ProductTextField buildPasswordTextfield(BuildContext context) {
     return ProductTextField(
         controller: passwordController,
-        validator: (value) =>
-            (value ?? "").length >= 6 ? null : AppText.invalidPassword,
+        validator: (value) => (value ?? "").length >= 6 ? null : AppText.invalidPassword,
         hintText: AppText.password,
         keyboardType: TextInputType.emailAddress,
         secondIcon: Icons.visibility_outlined,
@@ -132,7 +124,7 @@ class _LoginViewState extends State<LoginView> {
         onPressed: context.read<LoginCubit>().changeVisible);
   }
 
-  buildLoginButton(BuildContext context) {
+  Widget buildLoginButton(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -151,7 +143,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  buildBottomText(BuildContext context) {
+  Widget buildBottomText(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -169,10 +161,7 @@ class _LoginViewState extends State<LoginView> {
               )),
           child: Text(
             AppText.register,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: AppColors.mainPrimary),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
           ),
         ),
       ],
