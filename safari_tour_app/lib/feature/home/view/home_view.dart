@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/launch/view/launch.dart';
@@ -7,6 +8,7 @@ import 'package:safari_tour_app/product/const/theme/colors.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/routes/app_route.gr.dart';
 import '../../../product/const/border/border_radi.dart';
 import '../../../product/utility/Text/wrongText/wrong_text_view.dart';
 import '../../../product/utility/homeError/home_error_view.dart';
@@ -14,6 +16,7 @@ import '../../../product/utility/loading/loading_view.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 
+@RoutePage()
 class HomeView extends StatefulWidget {
   const HomeView({
     Key? key,
@@ -49,11 +52,9 @@ class _HomeViewState extends State<HomeView> {
                       onPressed: () async {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.remove("access");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LaunchView(),
-                            ));
+                        if (context.mounted) {
+                          AutoRouter.of(context).replace(const LaunchRoute());
+                        }
                       },
                       icon: const Icon(Icons.logout_outlined))
                 ],
@@ -74,19 +75,19 @@ class _HomeViewState extends State<HomeView> {
                           children: [
                             Text(
                               index.toString(),
-                              style: TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                              style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                             ),
                             Text(
                               widget.currentUser!.username.toString(),
-                              style: TextStyle(color: AppColors.mainPrimary, fontSize: 12),
+                              style: const TextStyle(color: AppColors.mainPrimary, fontSize: 12),
                             ),
                             Text(
                               context.read<HomeCubit>().allItems[index].price.toString(),
-                              style: TextStyle(color: AppColors.mainPrimary, fontSize: 16),
+                              style: const TextStyle(color: AppColors.mainPrimary, fontSize: 16),
                             ),
                             Text(
                               context.read<HomeCubit>().allItems[index].name.toString(),
-                              style: TextStyle(color: AppColors.mainPrimary, fontSize: 25),
+                              style: const TextStyle(color: AppColors.mainPrimary, fontSize: 25),
                             )
                             // Text(
                             //   context
@@ -123,11 +124,9 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.remove("access");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LaunchView(),
-                    ));
+                if (context.mounted) {
+                  AutoRouter.of(context).replace(const LaunchRoute());
+                }
               },
               icon: const Icon(Icons.logout_outlined))
         ],
@@ -148,15 +147,15 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Text(
                       widget.currentUser!.username.toString(),
-                      style: TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                     ),
                     Text(
                       context.read<HomeCubit>().allItems[0].price.toString(),
-                      style: TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                     ),
                     Text(
                       context.read<HomeCubit>().allItems[index].tourData.tourFeatures[0].length.toString(),
-                      style: TextStyle(color: AppColors.mainPrimary, fontSize: 35),
+                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                     ),
                   ],
                 ),

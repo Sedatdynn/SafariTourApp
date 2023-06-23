@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/routes/app_route.gr.dart';
 import '../../../product/const/text/app_text.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
@@ -16,6 +18,7 @@ import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
 import '../service/login_service.dart';
 
+@RoutePage()
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
   @override
@@ -154,11 +157,7 @@ class _LoginViewState extends State<LoginView> {
               ),
         ),
         InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const RegisterView(),
-              )),
+          onTap: () => AutoRouter.of(context).push(const RegisterRoute()),
           child: Text(
             AppText.register,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
