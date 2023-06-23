@@ -11,10 +11,6 @@ class UserProfileResponse extends BaseModel<UserProfileResponse> {
 
   UserProfileResponse({this.username, this.email, this.profileImage});
 
-  factory UserProfileResponse.fromJson(Map<String, dynamic> json) {
-    return _$UserProfileResponseFromJson(json);
-  }
-
   @override
   Map<String, dynamic> toJson() {
     return _$UserProfileResponseToJson(this);
@@ -22,7 +18,7 @@ class UserProfileResponse extends BaseModel<UserProfileResponse> {
 
   @override
   UserProfileResponse fromJson(Map<String, dynamic> json) {
-    return fromJson(json);
+    return _$UserProfileResponseFromJson(json);
   }
 
   @override

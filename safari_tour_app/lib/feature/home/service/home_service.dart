@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:safari_tour_app/feature/home/model/home_model.dart';
-import 'package:safari_tour_app/product/widget/Text/wrongText/wrong_text_view.dart';
+import 'package:safari_tour_app/product/utility/Text/wrongText/wrong_text_view.dart';
 
 import '../../../product/enums/page/page_enum.dart';
 import '../model/tour_model.dart';
@@ -23,7 +23,7 @@ class GeneralService extends IGeneralService {
       );
       var resData = response.data;
       if (response.statusCode == HttpStatus.ok) {
-        List<Tour>? results = HomeModel.fromJson(resData).results;
+        List<Tour>? results = HomeModel().fromJson(resData).results;
         return results;
       }
     } catch (e) {

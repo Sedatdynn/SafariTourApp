@@ -13,9 +13,9 @@ import 'package:safari_tour_app/product/service/project_manager.dart';
 
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
-import '../../../product/widget/button/active_button.dart';
-import '../../../product/widget/sizedBox/sized_box.dart';
-import '../../../product/widget/textfield/auth_textfield.dart';
+import '../../../product/utility/button/active_button.dart';
+import '../../../product/utility/sizedBox/sized_box.dart';
+import '../../../product/utility/textfield/auth_textfield.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -33,8 +33,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterCubit(formKey, usernameController,
-          emailController, passwordController, _image,
+      create: (context) => RegisterCubit(formKey, usernameController, emailController, passwordController, _image,
           service: RegisterService(ProjectNetworkManager.instance.service)),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) async {
@@ -79,9 +78,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Form(
       key: formKey,
       autovalidateMode: state is RegisterValidateState
-          ? (state.isValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled)
+          ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
           : AutovalidateMode.disabled,
       child: buildScrollBody(
         context,
@@ -166,10 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
       alignment: Alignment.centerLeft,
       child: Text(
         AppText.register,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(color: AppColors.black),
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.black),
       ),
     );
   }
@@ -177,8 +171,7 @@ class _RegisterViewState extends State<RegisterView> {
   ProductTextField buildUsernameTextfield() {
     return ProductTextField(
       controller: usernameController,
-      validator: (value) =>
-          (value ?? "").length >= 4 ? null : AppText.invalidUsername,
+      validator: (value) => (value ?? "").length >= 4 ? null : AppText.invalidUsername,
       hintText: AppText.exampleUsername,
       keyboardType: TextInputType.text,
     );
@@ -187,8 +180,7 @@ class _RegisterViewState extends State<RegisterView> {
   ProductTextField buildEmailTextfield() {
     return ProductTextField(
       controller: emailController,
-      validator: (value) =>
-          (value ?? "").contains("@") ? null : AppText.invalidMail,
+      validator: (value) => (value ?? "").contains("@") ? null : AppText.invalidMail,
       hintText: AppText.exampleMail,
       keyboardType: TextInputType.emailAddress,
     );
@@ -197,8 +189,7 @@ class _RegisterViewState extends State<RegisterView> {
   ProductTextField buildPasswordTextField(BuildContext context) {
     return ProductTextField(
       controller: passwordController,
-      validator: (value) =>
-          (value ?? "").length >= 6 ? null : AppText.invalidPassword,
+      validator: (value) => (value ?? "").length >= 6 ? null : AppText.invalidPassword,
       hintText: AppText.password,
       keyboardType: TextInputType.emailAddress,
       secondIcon: Icons.visibility_outlined,
@@ -240,10 +231,7 @@ class _RegisterViewState extends State<RegisterView> {
               )),
           child: Text(
             AppText.login,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: AppColors.mainPrimary),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
           ),
         ),
       ],
@@ -253,7 +241,6 @@ class _RegisterViewState extends State<RegisterView> {
 
 extension LoginCompleteExtension on RegisterLoaded {
   void navigate(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const LoginView()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginView()));
   }
 }

@@ -5,7 +5,7 @@ import '../../../product/extension/responsive/responsive.dart';
 import '../../../product/const/text/app_text.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
-import '../../../product/widget/button/active_button.dart';
+import '../../../product/utility/button/active_button.dart';
 import '../../login/view/login_view.dart';
 import '../../register/view/register.dart';
 

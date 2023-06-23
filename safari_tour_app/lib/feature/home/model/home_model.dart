@@ -12,10 +12,6 @@ class HomeModel extends BaseModel<HomeModel> {
 
   HomeModel({this.count, this.next, this.results});
 
-  factory HomeModel.fromJson(Map<String, dynamic> json) {
-    return _$HomeModelFromJson(json);
-  }
-
   @override
   Map<String, dynamic> toJson() {
     return _$HomeModelToJson(this);
@@ -23,7 +19,7 @@ class HomeModel extends BaseModel<HomeModel> {
 
   @override
   HomeModel fromJson(Map<String, dynamic> json) {
-    return fromJson(json);
+    return _$HomeModelFromJson(json);
   }
 
   @override

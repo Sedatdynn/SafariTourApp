@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ProjectNetworkManager {
   ProjectNetworkManager._() {
-    _dio = Dio(BaseOptions(baseUrl: "http://185.250.192.69:70"));
+    _dio = Dio(BaseOptions(baseUrl: "http://185.250.192.69"));
   }
   late final Dio _dio;
 
