@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:safari_tour_app/feature/login/model/login_request_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/login_response_model.dart';
@@ -10,19 +11,16 @@ class LoginService extends ILoginService {
 
   @override
   Future<bool?> postUserLogin(
-    Map<String, dynamic> loginData,
+    LoginRequestModel loginData,
   ) async {
     try {
-      final response = await dio.post(loginPath, data: {
-        "username": loginData["username"],
-        "password": loginData["password"]
-      });
+      final response = await dio.post(loginPath, data: loginData.toJson());
       if (response.statusCode == HttpStatus.ok) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         final jsonBody = response.data;
         if (jsonBody is Map<String, dynamic>) {
-          final tok = LoginResponseModel.fromJson(jsonBody);
+          final tok = LoginResponseModel().fromJson(jsonBody);
           prefs.setString("access", tok.access!);
           prefs.setString("refresh", tok.refresh!);
           return true;
@@ -30,6 +28,7 @@ class LoginService extends ILoginService {
       }
       return false;
     } catch (e) {
+      print(e);
       return false;
     }
   }

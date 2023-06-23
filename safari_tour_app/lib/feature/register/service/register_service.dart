@@ -18,16 +18,15 @@ class RegisterService extends IRegisterService {
         "username": registerData["username"],
         "email": registerData["email"],
         "password": registerData["password"],
-        "profile_image":
-            await MultipartFile.fromFile(registerData["profile_image"]),
+        "profile_image": await MultipartFile.fromFile(registerData["profile_image"] ?? ""),
       });
 
       final response = await dio.post(registerPath, data: formData);
       if (response.statusCode == HttpStatus.created) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        final jsonBody = response.data;
+        final jsonBody = await response.data;
         if (jsonBody is Map<String, dynamic>) {
-          final token = LoginResponseModel.fromJson(jsonBody);
+          final token = LoginResponseModel().fromJson(jsonBody);
           prefs.setString("access", token.access!);
           prefs.setString("refresh", token.refresh!);
           return true;

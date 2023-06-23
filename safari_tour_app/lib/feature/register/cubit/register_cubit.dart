@@ -18,29 +18,31 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool isRegisterFail = false;
   bool isLoading = false;
   bool isVisible = true;
-  RegisterService service =
-      RegisterService(ProjectNetworkManager.instance.service);
-  RegisterCubit(this.formKey, this.usernameController, this.emailController,
-      this.passwordController, this.image,
+  RegisterService service = RegisterService(ProjectNetworkManager.instance.service);
+  RegisterCubit(this.formKey, this.usernameController, this.emailController, this.passwordController, this.image,
       {required this.service})
       : super(RegisterInitial());
 
   Future<void> postUserRegisterModel(File? image) async {
-    if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
-      bool? data = await service.postUserRegister({
-        "username": usernameController.text.trim(),
-        "email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
-        "profile_image": image?.path,
-      });
-      if (data!) {
-        emit(RegisterLoaded(data));
-      } else {}
-    } else {
-      changeLoadingView();
-      isRegisterFail = true;
-      emit(RegisterValidateState(isRegisterFail));
+    try {
+      if (formKey.currentState != null && formKey.currentState!.validate()) {
+        changeLoadingView();
+        bool? data = await service.postUserRegister({
+          "username": usernameController.text.trim(),
+          "email": emailController.text.trim(),
+          "password": passwordController.text.trim(),
+          "profile_image": image?.path,
+        });
+        if (data!) {
+          emit(RegisterLoaded(data));
+        } else {}
+      } else {
+        changeLoadingView();
+        isRegisterFail = true;
+        emit(RegisterValidateState(isRegisterFail));
+      }
+    } catch (e) {
+      print(e);
     }
     changeLoadingView();
   }

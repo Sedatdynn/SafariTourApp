@@ -18,7 +18,7 @@ class SplashService extends ISplashService {
         ),
       );
       if (response.statusCode == HttpStatus.ok) {
-        return UserProfileResponse.fromJson(response.data);
+        return UserProfileResponse().fromJson(response.data);
       }
       return null;
     } catch (e) {

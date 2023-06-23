@@ -10,9 +10,6 @@ class LoginRequestModel extends BaseModel<LoginRequestModel> {
     required this.password,
   });
 
-  factory LoginRequestModel.fromJson(Map<String, dynamic> json) {
-    return _$LoginRequestModelFromJson(json);
-  }
   final String? username;
   final String? password;
 
@@ -36,6 +33,6 @@ class LoginRequestModel extends BaseModel<LoginRequestModel> {
 
   @override
   LoginRequestModel fromJson(Map<String, dynamic> json) {
-    return fromJson(json);
+    return _$LoginRequestModelFromJson(json);
   }
 }
