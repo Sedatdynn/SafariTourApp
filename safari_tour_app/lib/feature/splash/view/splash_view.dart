@@ -1,16 +1,17 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/home/view/home_view.dart';
+import 'package:safari_tour_app/core/routes/app_route.gr.dart';
 import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 
 import '../../../product/const/duration/duration.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
-import '../../launch/view/launch.dart';
 import '../cubit/splash_cubit.dart';
 
+@RoutePage()
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({Key? key}) : super(key: key);
   @override
@@ -29,19 +30,13 @@ class _SplashScreenViewState extends State<SplashScreenView> {
 
   Timer buildFirstTimer() {
     return Timer(Durations.tooSlow, () {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => HomeView(
-                  currentUser: context.read<SplashCubit>().currentUser)),
-          (route) => false);
+      AutoRouter.of(context).replace(HomeRoute(currentUser: context.read<SplashCubit>().currentUser));
     });
   }
 
   Timer buildLaunchTimer() {
     return Timer(Durations.fast, () {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LaunchView()),
-          (route) => false);
+      AutoRouter.of(context).push(const LaunchRoute());
     });
   }
 

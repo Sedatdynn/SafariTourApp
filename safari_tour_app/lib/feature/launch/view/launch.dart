@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import '../../../core/routes/app_route.gr.dart';
 import '../../../product/extension/images/svg/svg_images.dart';
 import '../../../product/extension/responsive/responsive.dart';
 
@@ -9,6 +11,7 @@ import '../../../product/utility/button/active_button.dart';
 import '../../login/view/login_view.dart';
 import '../../register/view/register.dart';
 
+@RoutePage()
 class LaunchView extends StatefulWidget {
   const LaunchView({Key? key}) : super(key: key);
 
@@ -63,12 +66,7 @@ class _LaunchViewState extends State<LaunchView> {
     return ActiveButton(
       label: AppText.login,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginView(),
-          ),
-        );
+        AutoRouter.of(context).push(const LoginRoute());
       },
       buttonColor: AppColors.white,
       textColor: AppColors.button,
@@ -79,12 +77,7 @@ class _LaunchViewState extends State<LaunchView> {
     return ActiveButton(
       label: AppText.register,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RegisterView(),
-          ),
-        );
+        AutoRouter.of(context).push(const RegisterRoute());
       },
     );
   }

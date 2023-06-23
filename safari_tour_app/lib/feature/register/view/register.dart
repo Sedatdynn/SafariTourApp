@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:safari_tour_app/feature/login/view/login_view.dart';
 import 'package:safari_tour_app/feature/register/cubit/register_cubit.dart';
 import 'package:safari_tour_app/feature/register/service/register_service.dart';
 import 'package:safari_tour_app/product/const/text/app_text.dart';
@@ -11,12 +11,14 @@ import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
 import 'package:safari_tour_app/product/service/project_manager.dart';
 
+import '../../../core/routes/app_route.gr.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
 import '../../../product/utility/button/active_button.dart';
 import '../../../product/utility/sizedBox/sized_box.dart';
 import '../../../product/utility/textfield/auth_textfield.dart';
 
+@RoutePage()
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
   @override
@@ -213,7 +215,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  buildBottomText(BuildContext context) {
+  Widget buildBottomText(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -224,11 +226,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
         ),
         InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const LoginView(),
-              )),
+          onTap: () => AutoRouter.of(context).push(const LoginRoute()),
           child: Text(
             AppText.login,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
@@ -241,6 +239,6 @@ class _RegisterViewState extends State<RegisterView> {
 
 extension LoginCompleteExtension on RegisterLoaded {
   void navigate(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginView()));
+    AutoRouter.of(context).push(const LoginRoute());
   }
 }
