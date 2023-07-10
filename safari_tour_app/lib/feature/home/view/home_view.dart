@@ -1,8 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/launch/view/launch.dart';
 import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
 import 'package:safari_tour_app/product/const/theme/colors.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';

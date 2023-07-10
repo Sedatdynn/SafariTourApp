@@ -13,7 +13,6 @@ import '../../../product/service/project_manager.dart';
 import '../../../product/utility/button/active_button.dart';
 import '../../../product/utility/sizedBox/sized_box.dart';
 import '../../../product/utility/textfield/auth_textfield.dart';
-import '../../register/view/register.dart';
 import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
 import '../service/login_service.dart';

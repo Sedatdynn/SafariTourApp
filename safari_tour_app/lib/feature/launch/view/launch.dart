@@ -8,18 +8,11 @@ import '../../../product/const/text/app_text.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
 import '../../../product/utility/button/active_button.dart';
-import '../../login/view/login_view.dart';
-import '../../register/view/register.dart';
 
 @RoutePage()
-class LaunchView extends StatefulWidget {
+class LaunchView extends StatelessWidget {
   const LaunchView({Key? key}) : super(key: key);
 
-  @override
-  State<LaunchView> createState() => _LaunchViewState();
-}
-
-class _LaunchViewState extends State<LaunchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,20 +42,20 @@ class _LaunchViewState extends State<LaunchView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: buildLoginButton(),
+            child: buildLoginButton(context),
           ),
           SizedBox(
             width: context.dynamicWidth(0.02),
           ),
           Expanded(
-            child: buildRegisterButton(),
+            child: buildRegisterButton(context),
           ),
         ],
       ),
     );
   }
 
-  ActiveButton buildLoginButton() {
+  ActiveButton buildLoginButton(BuildContext context) {
     return ActiveButton(
       label: AppText.login,
       onPressed: () {
@@ -73,7 +66,7 @@ class _LaunchViewState extends State<LaunchView> {
     );
   }
 
-  ActiveButton buildRegisterButton() {
+  ActiveButton buildRegisterButton(BuildContext context) {
     return ActiveButton(
       label: AppText.register,
       onPressed: () {
