@@ -1,4 +1,4 @@
-mixin AppText {
+class AppText {
   /// Title above the list of tasks.
   static const String appTitle = 'Safari Tour App';
   static const String login = 'Log In';
@@ -13,9 +13,7 @@ mixin AppText {
   static const String drawerHome = 'Welcome';
   static const String drawerHistory = 'Launch';
   static const String wrong = 'Something went Wrong!';
-  static const String invalidUsername =
-      'Username must be at least 4 characters!';
+  static const String invalidUsername = 'Username must be at least 4 characters!';
   static const String invalidMail = 'Invalid mail!';
-  static const String invalidPassword =
-      'password must be at least 6 characters!';
+  static const String invalidPassword = 'password must be at least 6 characters!';
 }

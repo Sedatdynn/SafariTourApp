@@ -4,19 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:safari_tour_app/feature/register/cubit/register_cubit.dart';
-import 'package:safari_tour_app/feature/register/service/register_service.dart';
-import 'package:safari_tour_app/product/const/text/app_text.dart';
-import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
-import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
-import 'package:safari_tour_app/product/service/project_manager.dart';
-
-import '../../../core/routes/app_route.gr.dart';
-import '../../../product/const/theme/colors.dart';
-import '../../../product/enums/images/image_enums.dart';
-import '../../../product/utility/button/active_button.dart';
-import '../../../product/utility/sizedBox/sized_box.dart';
-import '../../../product/utility/textfield/auth_textfield.dart';
+import '../register_shelf.dart';
+part '../widget/text_fields.dart';
+part '../widget/top_text.dart';
+part '../widget/picked_image.dart';
 
 @RoutePage()
 class RegisterView extends StatefulWidget {
@@ -88,34 +79,14 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  SingleChildScrollView buildScrollBody(
-    BuildContext context,
-  ) {
-    Future getImage(ImageSource source) async {
-      final xFileImage = await ImagePicker().pickImage(source: source);
-
-      if (xFileImage == null) return;
-
-      final imageTemporary = File(xFileImage.path);
-      setState(() {
-        _image = imageTemporary;
-      });
-    }
-
+  SingleChildScrollView buildScrollBody(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           ConstSpace(height: context.dynamicHeight(0.05)),
-          buildRegisterText(context),
+          const RegisterTopTextWidget(),
           const ConstSpace(),
-          ClipOval(
-            child: _image != null
-                ? Image.file(
-                    _image!,
-                    height: 160,
-                  )
-                : ImagePaths.safari.toWidget(context: context),
-          ),
+          PickedImageWidget(image: _image),
           Padding(
             padding: context.lowAllPadding,
             child: Row(
@@ -125,7 +96,9 @@ class _RegisterViewState extends State<RegisterView> {
                   child: ActiveButton(
                     label: "Pick from gallery",
                     onPressed: () {
-                      getImage(ImageSource.gallery);
+                      context.read<RegisterCubit>().getImage(
+                            ImageSource.gallery,
+                          );
                     },
                     buttonColor: AppColors.white,
                     textColor: AppColors.button,
@@ -138,7 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
                   child: ActiveButton(
                     label: "Pick from camera",
                     onPressed: () {
-                      getImage(ImageSource.camera);
+                      context.read<RegisterCubit>().getImage(ImageSource.camera);
                     },
                   ),
                 ),
@@ -146,11 +119,10 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           ),
           const ConstSpace(),
-          buildUsernameTextfield(),
-          const ConstSpace(),
-          buildEmailTextfield(),
-          const ConstSpace(),
-          buildPasswordTextField(context),
+          RegisterTextFields(
+              usernameController: usernameController,
+              emailController: emailController,
+              passwordController: passwordController),
           const ConstSpace(),
           buildRegisterButton(context),
           const ConstSpace(),
@@ -160,58 +132,22 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Align buildRegisterText(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        AppText.register,
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.black),
-      ),
-    );
-  }
-
-  ProductTextField buildUsernameTextfield() {
-    return ProductTextField(
-      controller: usernameController,
-      validator: (value) => (value ?? "").length >= 4 ? null : AppText.invalidUsername,
-      hintText: AppText.exampleUsername,
-      keyboardType: TextInputType.text,
-    );
-  }
-
-  ProductTextField buildEmailTextfield() {
-    return ProductTextField(
-      controller: emailController,
-      validator: (value) => (value ?? "").contains("@") ? null : AppText.invalidMail,
-      hintText: AppText.exampleMail,
-      keyboardType: TextInputType.emailAddress,
-    );
-  }
-
-  ProductTextField buildPasswordTextField(BuildContext context) {
-    return ProductTextField(
-      controller: passwordController,
-      validator: (value) => (value ?? "").length >= 6 ? null : AppText.invalidPassword,
-      hintText: AppText.password,
-      keyboardType: TextInputType.emailAddress,
-      secondIcon: Icons.visibility_outlined,
-      firstIcon: Icons.visibility_off_outlined,
-      passwordVisible: context.watch<RegisterCubit>().isVisible,
-      onPressed: context.read<RegisterCubit>().changeVisible,
-    );
-  }
-
-  SizedBox buildRegisterButton(BuildContext context) {
-    return SizedBox(
-      width: context.width,
-      child: ActiveButton(
-        label: AppText.register.toUpperCase(),
-        onPressed: context.watch<RegisterCubit>().isLoading
-            ? null
-            : () {
-                context.read<RegisterCubit>().postUserRegisterModel(_image);
-              },
-      ),
+  buildRegisterButton(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        return SizedBox(
+          width: context.width,
+          child: ActiveButton(
+            label: AppText.register.toUpperCase(),
+            onPressed: context.read<RegisterCubit>().isLoading
+                ? null
+                : () {
+                    _image = context.read<RegisterCubit>().image;
+                    context.read<RegisterCubit>().postUserRegisterModel(_image);
+                  },
+          ),
+        );
+      },
     );
   }
 

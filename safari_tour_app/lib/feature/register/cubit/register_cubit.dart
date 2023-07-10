@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../product/service/project_manager.dart';
 import '../service/register_service.dart';
@@ -45,6 +46,17 @@ class RegisterCubit extends Cubit<RegisterState> {
       print(e);
     }
     changeLoadingView();
+  }
+
+  Future getImage(ImageSource source) async {
+    final xFileImage = await ImagePicker().pickImage(source: source);
+
+    if (xFileImage == null) return;
+
+    final imageTemporary = File(xFileImage.path);
+
+    image = imageTemporary;
+    emit(RegisterImageLoaded(image));
   }
 
   void changeLoadingView() {

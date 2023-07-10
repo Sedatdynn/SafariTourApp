@@ -28,3 +28,9 @@ class RegisterError extends RegisterState {
   final String message;
   RegisterError(this.message);
 }
+
+class RegisterImageLoaded extends RegisterState {
+  final File? image;
+
+  RegisterImageLoaded(this.image);
+}

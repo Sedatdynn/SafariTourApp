@@ -13,9 +13,8 @@ import 'package:flutter/material.dart' as _i7;
 import 'package:safari_tour_app/feature/home/view/home_view.dart' as _i1;
 import 'package:safari_tour_app/feature/launch/view/launch.dart' as _i2;
 import 'package:safari_tour_app/feature/login/view/login_view.dart' as _i3;
-import 'package:safari_tour_app/feature/register/view/register.dart' as _i4;
-import 'package:safari_tour_app/feature/splash/model/user_response_model.dart'
-    as _i8;
+import 'package:safari_tour_app/feature/register/view/register_view.dart' as _i4;
+import 'package:safari_tour_app/feature/splash/model/user_response_model.dart' as _i8;
 import 'package:safari_tour_app/feature/splash/view/splash_view.dart' as _i5;
 
 abstract class $AppRouter extends _i6.RootStackRouter {
@@ -24,8 +23,7 @@ abstract class $AppRouter extends _i6.RootStackRouter {
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
+      final args = routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.HomeView(
@@ -79,8 +77,7 @@ class HomeRoute extends _i6.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i6.PageInfo<HomeRouteArgs> page =
-      _i6.PageInfo<HomeRouteArgs>(name);
+  static const _i6.PageInfo<HomeRouteArgs> page = _i6.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
