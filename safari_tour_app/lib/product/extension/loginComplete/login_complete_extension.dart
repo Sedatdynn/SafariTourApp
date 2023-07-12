@@ -15,7 +15,10 @@ extension LoginCompleteExtension on LoginComplete {
     final String? token = prefs.getString("access");
     dynamic user = await service.checkUserToken({"token": token});
     if (context.mounted) {
-      AutoRouter.of(context).push(HomeRoute(currentUser: user));
+      AutoRouter.of(context).pushAndPopUntil(
+        HomeRoute(currentUser: user),
+        predicate: (route) => false,
+      );
     }
   }
 }

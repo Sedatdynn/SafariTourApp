@@ -17,7 +17,6 @@ class RegisterRequestModel extends BaseModel<RegisterRequestModel> {
     includeFromJson: false,
   )
   MultipartFile? profileImage;
-  // final File? profileImage;
 
   RegisterRequestModel({
     this.username,

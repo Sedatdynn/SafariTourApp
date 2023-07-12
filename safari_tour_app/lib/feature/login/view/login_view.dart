@@ -2,32 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/routes/app_route.gr.dart';
-import '../../../product/const/text/app_text.dart';
-import '../../../product/const/theme/colors.dart';
-import '../../../product/enums/images/image_enums.dart';
-import '../../../product/extension/images/png/png_images.dart';
-import '../../../product/extension/loginComplete/login_complete_extension.dart';
-import '../../../product/extension/responsive/responsive.dart';
-import '../../../product/service/project_manager.dart';
-import '../../../product/utility/button/active_button.dart';
-import '../../../product/utility/sizedBox/sized_box.dart';
-import '../../../product/utility/textfield/auth_textfield.dart';
-import '../cubit/login_cubit.dart';
-import '../cubit/login_state.dart';
-import '../service/login_service.dart';
+import '../../../product/enums/routes/routes_enum.dart';
+import '../../../product/utility/navigate/navigate.dart';
+import '../login_shelf.dart';
 
 @RoutePage()
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
-  @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
+class LoginView extends StatelessWidget {
+  LoginView({Key? key}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey();
+
   final TextEditingController usernameController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -156,7 +143,7 @@ class _LoginViewState extends State<LoginView> {
               ),
         ),
         InkWell(
-          onTap: () => AutoRouter.of(context).push(const RegisterRoute()),
+          onTap: () => NavigateTo.push(context, RouteEnum.register.withSlash),
           child: Text(
             AppText.register,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),

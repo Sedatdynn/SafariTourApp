@@ -1,28 +1,21 @@
-import 'dart:io';
-
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import '../register_shelf.dart';
 part '../widget/text_fields.dart';
 part '../widget/top_text.dart';
 part '../widget/picked_image.dart';
 
 @RoutePage()
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
+class RegisterView extends StatelessWidget {
+  RegisterView({Key? key}) : super(key: key);
   File? _image;
 
   final GlobalKey<FormState> formKey = GlobalKey();
+
   final TextEditingController usernameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -31,7 +24,7 @@ class _RegisterViewState extends State<RegisterView> {
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) async {
           if (state is RegisterLoaded) {
-            state.navigate(context);
+            NavigateTo.push(context, RouteEnum.login.withSlash);
           }
         },
         builder: (context, state) {
@@ -162,7 +155,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
         ),
         InkWell(
-          onTap: () => AutoRouter.of(context).push(const LoginRoute()),
+          onTap: () => NavigateTo.push(context, RouteEnum.login.withSlash),
           child: Text(
             AppText.login,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
@@ -170,11 +163,5 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ],
     );
-  }
-}
-
-extension LoginCompleteExtension on RegisterLoaded {
-  void navigate(BuildContext context) {
-    AutoRouter.of(context).push(const LoginRoute());
   }
 }

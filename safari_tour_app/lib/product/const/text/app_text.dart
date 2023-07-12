@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class AppText {
-  /// Title above the list of tasks.
+  const AppText._();
   static const String appTitle = 'Safari Tour App';
   static const String login = 'Log In';
   static const String exampleUsername = 'username';

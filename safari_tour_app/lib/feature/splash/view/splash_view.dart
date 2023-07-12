@@ -9,6 +9,8 @@ import 'package:safari_tour_app/product/extension/images/png/png_images.dart';
 import '../../../product/const/duration/duration.dart';
 import '../../../product/const/theme/colors.dart';
 import '../../../product/enums/images/image_enums.dart';
+import '../../../product/enums/routes/routes_enum.dart';
+import '../../../product/utility/navigate/navigate.dart';
 import '../cubit/splash_cubit.dart';
 
 @RoutePage()
@@ -36,7 +38,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
 
   Timer buildLaunchTimer() {
     return Timer(Durations.fast, () {
-      AutoRouter.of(context).push(const LaunchRoute());
+      NavigateTo.replace(context, RouteEnum.launch.withSlash);
     });
   }
 
