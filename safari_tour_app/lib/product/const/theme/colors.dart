@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+@immutable
 class AppColors {
+  const AppColors._();
   static const Color mainPrimary = Color(0xff3f3d56);
   static const int _primaryColor = 0xfffbba52;
   static const Map<int, Color> _swatch = <int, Color>{
@@ -16,8 +18,7 @@ class AppColors {
     900: Color.fromRGBO(251, 186, 82, 1),
   };
 
-  static const MaterialColor primarySwatch =
-      MaterialColor(_primaryColor, _swatch);
+  static const MaterialColor primarySwatch = MaterialColor(_primaryColor, _swatch);
 
   /// White color.
   static const Color white = Color.fromRGBO(255, 255, 255, 1); //

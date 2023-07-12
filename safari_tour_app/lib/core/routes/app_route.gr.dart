@@ -41,13 +41,13 @@ abstract class $AppRouter extends _i6.RootStackRouter {
     LoginRoute.name: (routeData) {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.LoginView(),
+        child: _i3.LoginView(),
       );
     },
     RegisterRoute.name: (routeData) {
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.RegisterView(),
+        child: _i4.RegisterView(),
       );
     },
     SplashScreenRoute.name: (routeData) {

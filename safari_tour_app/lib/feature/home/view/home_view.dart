@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
 import 'package:safari_tour_app/product/const/theme/colors.dart';
 import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
+import 'package:safari_tour_app/product/utility/navigate/navigate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/routes/app_route.gr.dart';
 import '../../../product/const/border/border_radi.dart';
+import '../../../product/enums/routes/routes_enum.dart';
 import '../../../product/utility/Text/wrongText/wrong_text_view.dart';
 import '../../../product/utility/homeError/home_error_view.dart';
 import '../../../product/utility/loading/loading_view.dart';
@@ -51,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.remove("access");
                         if (context.mounted) {
-                          AutoRouter.of(context).replace(const LaunchRoute());
+                          NavigateTo.replace(context, RouteEnum.launch.withSlash);
                         }
                       },
                       icon: const Icon(Icons.logout_outlined))
@@ -123,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.remove("access");
                 if (context.mounted) {
-                  AutoRouter.of(context).replace(const LaunchRoute());
+                  NavigateTo.replace(context, RouteEnum.launch.withSlash);
                 }
               },
               icon: const Icon(Icons.logout_outlined))
