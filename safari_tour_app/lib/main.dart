@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:safari_tour_app/core/cache/shared_manager.dart';
 import 'package:safari_tour_app/core/theme/theme.dart';
 import 'package:safari_tour_app/product/service/project_manager.dart';
 
@@ -9,8 +10,9 @@ import 'feature/home/cubit/home_cubit.dart';
 import 'feature/home/service/home_service.dart';
 import 'feature/splash/cubit/splash_cubit.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedManager.preferencesInit();
   runApp(MyApp());
 }
 
