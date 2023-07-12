@@ -3,21 +3,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum SharedKeys { access, refresh }
 
 class SharedManager {
-  SharedPreferences? preferences;
-  SharedManager();
-  Future<void> init() async {
-    preferences = await SharedPreferences.getInstance();
+  SharedManager._init() {
+    SharedPreferences.getInstance().then((value) => _preferences = value);
+  }
+
+  static final SharedManager _instance = SharedManager._init();
+
+  SharedPreferences? _preferences;
+  static SharedManager get instance => _instance;
+  static Future preferencesInit() async {
+    instance._preferences ??= await SharedPreferences.getInstance();
   }
 
   Future<void> setString(SharedKeys key, String value) async {
-    await preferences?.setString(key.name, value);
+    await _preferences?.setString(key.name, value);
   }
 
   String? getString(SharedKeys key) {
-    return preferences?.getString(key.name);
+    return _preferences?.getString(key.name);
   }
 
   Future<bool> removeItem(SharedKeys key) async {
-    return (await preferences?.remove(key.name)) ?? false;
+    return (await _preferences?.remove(key.name)) ?? false;
   }
 }

@@ -19,3 +19,6 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+
+# Exclude VS Code configuration directory which includes turkish words
+.vscode/

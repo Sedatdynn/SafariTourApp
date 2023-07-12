@@ -1,33 +1,13 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
-import 'package:safari_tour_app/product/const/theme/colors.dart';
-import 'package:safari_tour_app/product/extension/responsive/responsive.dart';
-import 'package:safari_tour_app/product/utility/navigate/navigate.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/routes/app_route.gr.dart';
-import '../../../product/const/border/border_radi.dart';
-import '../../../product/enums/routes/routes_enum.dart';
-import '../../../product/utility/Text/wrongText/wrong_text_view.dart';
-import '../../../product/utility/homeError/home_error_view.dart';
-import '../../../product/utility/loading/loading_view.dart';
-import '../cubit/home_cubit.dart';
-import '../cubit/home_state.dart';
+import '../home_shelf.dart';
+part '../widget/app_bar.dart';
 
 @RoutePage()
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({
     Key? key,
     this.currentUser,
   }) : super(key: key);
   final UserProfileResponse? currentUser;
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
@@ -46,18 +26,8 @@ class _HomeViewState extends State<HomeView> {
               return true;
             },
             child: Scaffold(
-              appBar: AppBar(
-                actions: [
-                  IconButton(
-                      onPressed: () async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.remove("access");
-                        if (context.mounted) {
-                          NavigateTo.replace(context, RouteEnum.launch.withSlash);
-                        }
-                      },
-                      icon: const Icon(Icons.logout_outlined))
-                ],
+              appBar: HomeAppBar(
+                context: context,
               ),
               body: SingleChildScrollView(
                 child: SizedBox(
@@ -78,7 +48,7 @@ class _HomeViewState extends State<HomeView> {
                               style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
                             ),
                             Text(
-                              widget.currentUser!.username.toString(),
+                              currentUser!.username.toString(),
                               style: const TextStyle(color: AppColors.mainPrimary, fontSize: 12),
                             ),
                             Text(
@@ -114,56 +84,5 @@ class _HomeViewState extends State<HomeView> {
         return const WrongText();
       });
     });
-  }
-
-  Scaffold buildScaffoldBody(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.remove("access");
-                if (context.mounted) {
-                  NavigateTo.replace(context, RouteEnum.launch.withSlash);
-                }
-              },
-              icon: const Icon(Icons.logout_outlined))
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.height,
-          child: ListView.builder(
-            itemCount: context.read<HomeCubit>().allItems.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: context.extremeAllPadding,
-                padding: context.extremeAllPadding,
-                decoration: const BoxDecoration(color: AppColors.button, borderRadius: BorderRadi.lowCircular),
-                height: context.dynamicHeight(0.3),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.currentUser!.username.toString(),
-                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
-                    ),
-                    Text(
-                      context.read<HomeCubit>().allItems[0].price.toString(),
-                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
-                    ),
-                    Text(
-                      context.read<HomeCubit>().allItems[index].tourData.tourFeatures[0].length.toString(),
-                      style: const TextStyle(color: AppColors.mainPrimary, fontSize: 35),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
   }
 }
