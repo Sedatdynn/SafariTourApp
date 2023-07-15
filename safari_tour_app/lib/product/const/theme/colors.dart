@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class AppColors {
+final class AppColors {
   const AppColors._();
   static const Color mainPrimary = Color(0xff3f3d56);
   static const int _primaryColor = 0xfffbba52;

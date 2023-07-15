@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 @immutable
-class AppText {
+final class AppText {
   const AppText._();
   static const String appTitle = 'Safari Tour App';
   static const String login = 'Log In';

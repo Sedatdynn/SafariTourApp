@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class NavigateTo {
+final class NavigateTo {
   const NavigateTo._();
   static push(BuildContext context, String targetRoute) {
     AutoRouter.of(context).pushNamed(targetRoute);

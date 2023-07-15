@@ -1,6 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:safari_tour_app/feature/splash/model/user_response_model.dart';
-import '../../../core/cache/shared_manager.dart';
+import 'package:safari_tour_app/feature/home/home_shelf.dart';
 import '../../../product/service/project_manager.dart';
 import '../service/splash_service.dart';
 
@@ -10,7 +8,7 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashInitial());
   late UserProfileResponse currentUser;
   SplashService service = SplashService(ProjectNetworkManager.instance.service);
-  Future<void> checkToken() async {
+  Future<void> checkToken(BuildContext context) async {
     final String? token = SharedManager.instance.getString(SharedKeys.access);
     if (token != null) {
       try {
@@ -26,6 +24,7 @@ class SplashCubit extends Cubit<SplashState> {
       }
     } else {
       emit(SplashFailure());
+      NavigateTo.replace(context, RouteEnum.launch.withSlash);
     }
   }
 }

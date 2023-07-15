@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 ///
 
 @immutable
-class Durations {
+final class Durations {
+  const Durations._();
+
   /// Too slow duration constant with 1800 milliseconds.
   static const Duration tooSlow = Duration(milliseconds: 1800);
 

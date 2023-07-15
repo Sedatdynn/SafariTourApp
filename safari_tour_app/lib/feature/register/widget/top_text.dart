@@ -1,9 +1,7 @@
 part of '../view/register_view.dart';
 
-class RegisterTopTextWidget extends StatelessWidget {
-  const RegisterTopTextWidget({
-    super.key,
-  });
+class _RegisterTopTextWidget extends StatelessWidget {
+  const _RegisterTopTextWidget();
 
   @override
   Widget build(BuildContext context) {
