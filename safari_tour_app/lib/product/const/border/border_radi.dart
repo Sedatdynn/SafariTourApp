@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class BorderRadi {
+final class BorderRadi {
+  const BorderRadi._();
+
   /// Extreme low circular border, radius: 8.
   static const BorderRadius extremeLowCircular = BorderRadius.all(Radius.circular(8));
 

@@ -1,8 +1,7 @@
 part of '../view/register_view.dart';
 
-class PickedImageWidget extends StatelessWidget {
-  const PickedImageWidget({
-    super.key,
+class _PickedImageWidget extends StatelessWidget {
+  const _PickedImageWidget({
     required File? image,
   });
 

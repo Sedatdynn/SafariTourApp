@@ -1,8 +1,7 @@
 part of '../view/register_view.dart';
 
-class RegisterTextFields extends StatelessWidget {
-  const RegisterTextFields({
-    super.key,
+class _RegisterTextFields extends StatelessWidget {
+  const _RegisterTextFields({
     required this.usernameController,
     required this.emailController,
     required this.passwordController,

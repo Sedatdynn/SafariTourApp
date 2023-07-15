@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'border_radi.dart';
 
 @immutable
-class ShapedBorders {
+final class ShapedBorders {
+  const ShapedBorders._();
+
   /// Low rounded rectangle shaped border. Radius: 12.
   static const RoundedRectangleBorder roundedLow = RoundedRectangleBorder(borderRadius: BorderRadi.lowCircular);
 

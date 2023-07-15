@@ -77,9 +77,9 @@ class RegisterView extends StatelessWidget {
       child: Column(
         children: [
           ConstSpace(height: context.dynamicHeight(0.05)),
-          const RegisterTopTextWidget(),
+          const _RegisterTopTextWidget(),
           const ConstSpace(),
-          PickedImageWidget(image: _image),
+          _PickedImageWidget(image: _image),
           Padding(
             padding: context.lowAllPadding,
             child: Row(
@@ -112,7 +112,7 @@ class RegisterView extends StatelessWidget {
             ),
           ),
           const ConstSpace(),
-          RegisterTextFields(
+          _RegisterTextFields(
               usernameController: usernameController,
               emailController: emailController,
               passwordController: passwordController),

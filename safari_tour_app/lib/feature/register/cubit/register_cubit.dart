@@ -56,6 +56,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     final imageTemporary = File(xFileImage.path);
 
     image = imageTemporary;
+    if (image == null) return;
+
     emit(RegisterImageLoaded(image));
   }
 

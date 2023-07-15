@@ -27,7 +27,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
   void initState() {
     super.initState();
     buildSecondTimer();
-    context.read<SplashCubit>().checkToken();
+    context.read<SplashCubit>().checkToken(context);
   }
 
   Timer buildFirstTimer() {

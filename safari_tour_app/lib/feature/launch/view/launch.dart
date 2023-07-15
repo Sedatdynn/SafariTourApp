@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:safari_tour_app/product/enums/routes/routes_enum.dart';
 import 'package:safari_tour_app/product/utility/navigate/navigate.dart';
-import '../../../core/routes/app_route.gr.dart';
 import '../../../product/extension/images/svg/svg_images.dart';
 import '../../../product/extension/responsive/responsive.dart';
 

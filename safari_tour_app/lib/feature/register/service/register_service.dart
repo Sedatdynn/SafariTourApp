@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/cache/shared_manager.dart';
 import '../../login/model/login_response_model.dart';
