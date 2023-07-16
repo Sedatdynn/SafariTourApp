@@ -2,6 +2,9 @@ import '../register_shelf.dart';
 part '../widget/text_fields.dart';
 part '../widget/top_text.dart';
 part '../widget/picked_image.dart';
+part '../widget/bottom_auth_texts.dart';
+part '../widget/register_button.dart';
+part '../widget/pick_image.dart';
 
 @RoutePage()
 class RegisterView extends StatelessWidget {
@@ -46,17 +49,6 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  AppBar buildCustomAppBar(BuildContext context) {
-    return AppBar(
-      leading: Visibility(
-        visible: context.watch<RegisterCubit>().isLoading,
-        child: const CircularProgressIndicator(
-          color: AppColors.mainPrimary,
-        ),
-      ),
-    );
-  }
-
   Form buildFormBody(
     RegisterState state,
     BuildContext context,
@@ -82,34 +74,7 @@ class RegisterView extends StatelessWidget {
           _PickedImageWidget(image: _image),
           Padding(
             padding: context.lowAllPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: ActiveButton(
-                    label: "Pick from gallery",
-                    onPressed: () {
-                      context.read<RegisterCubit>().getImage(
-                            ImageSource.gallery,
-                          );
-                    },
-                    buttonColor: AppColors.white,
-                    textColor: AppColors.button,
-                  ),
-                ),
-                SizedBox(
-                  width: context.dynamicWidth(0.02),
-                ),
-                Expanded(
-                  child: ActiveButton(
-                    label: "Pick from camera",
-                    onPressed: () {
-                      context.read<RegisterCubit>().getImage(ImageSource.camera);
-                    },
-                  ),
-                ),
-              ],
-            ),
+            child: const _PickImageWidget(),
           ),
           const ConstSpace(),
           _RegisterTextFields(
@@ -117,51 +82,11 @@ class RegisterView extends StatelessWidget {
               emailController: emailController,
               passwordController: passwordController),
           const ConstSpace(),
-          buildRegisterButton(context),
+          const _RegisterButton(),
           const ConstSpace(),
-          buildBottomText(context),
+          const _BottomAuthTexts(),
         ],
       ),
-    );
-  }
-
-  buildRegisterButton(BuildContext context) {
-    return BlocBuilder<RegisterCubit, RegisterState>(
-      builder: (context, state) {
-        return SizedBox(
-          width: context.width,
-          child: ActiveButton(
-            label: AppText.register.toUpperCase(),
-            onPressed: context.read<RegisterCubit>().isLoading
-                ? null
-                : () {
-                    _image = context.read<RegisterCubit>().image;
-                    context.read<RegisterCubit>().postUserRegisterModel(_image);
-                  },
-          ),
-        );
-      },
-    );
-  }
-
-  Widget buildBottomText(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          AppText.haveAccount,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: AppColors.darkGrey.withOpacity(0.4),
-              ),
-        ),
-        InkWell(
-          onTap: () => NavigateTo.push(context, RouteEnum.login.withSlash),
-          child: Text(
-            AppText.login,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
-          ),
-        ),
-      ],
     );
   }
 }

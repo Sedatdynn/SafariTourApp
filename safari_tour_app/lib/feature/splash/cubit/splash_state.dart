@@ -10,3 +10,8 @@ class SplashSuccess extends SplashState {
 }
 
 class SplashFailure extends SplashState {}
+
+class SplashLoading extends SplashState {
+  bool? isVisible;
+  SplashLoading(this.isVisible);
+}
