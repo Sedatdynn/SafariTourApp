@@ -10,7 +10,10 @@ class AppRouter extends $AppRouter {
 
   @override
   final List<AutoRoute> routes = [
-    AutoRoute(page: SplashScreenRoute.page, path: "/"),
+    AutoRoute(
+      page: SplashScreenRoute.page,
+      path: "/",
+    ),
     AutoRoute(
       page: LaunchRoute.page,
       path: RouteEnum.launch.withSlash,

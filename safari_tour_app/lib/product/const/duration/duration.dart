@@ -22,8 +22,8 @@ final class Durations {
   /// Medium-Fast duration constant with 800 milliseconds.
   static const Duration medFast = Duration(milliseconds: 800);
 
-  /// Fast duration constant with 250 milliseconds.
-  static const Duration fast = Duration(milliseconds: 240);
+  /// Fast duration constant with 400 milliseconds.
+  static const Duration fast = Duration(milliseconds: 400);
 
   /// Too fast duration constant with 125 milliseconds.
   static const Duration tooFast = Duration(milliseconds: 120);

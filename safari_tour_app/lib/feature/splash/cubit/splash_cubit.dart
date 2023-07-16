@@ -5,8 +5,11 @@ import '../service/splash_service.dart';
 part 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
-  SplashCubit() : super(SplashInitial());
+  SplashCubit(BuildContext context) : super(SplashInitial()) {
+    Future.value({checkToken(context), changeVisibility()});
+  }
   late UserProfileResponse currentUser;
+  bool isVisible = false;
   SplashService service = SplashService(ProjectNetworkManager.instance.service);
   Future<void> checkToken(BuildContext context) async {
     final String? token = SharedManager.instance.getString(SharedKeys.access);
@@ -24,7 +27,11 @@ class SplashCubit extends Cubit<SplashState> {
       }
     } else {
       emit(SplashFailure());
-      NavigateTo.replace(context, RouteEnum.launch.withSlash);
     }
+  }
+
+  void changeVisibility() {
+    isVisible = !isVisible;
+    emit(SplashLoading(isVisible));
   }
 }

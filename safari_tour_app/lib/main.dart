@@ -22,9 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SplashCubit splashCubit = SplashCubit(context);
+    final HomeCubit homeCubit = HomeCubit(GeneralService(ProjectNetworkManager.instance.service))..fetchAllItems();
     return MultiBlocProviderWidget(
-      homeCubit: HomeCubit(GeneralService(ProjectNetworkManager.instance.service))..fetchAllItems(),
-      splashCubit: SplashCubit(),
+      splashCubit: splashCubit,
+      homeCubit: homeCubit,
       child: MaterialApp.router(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
