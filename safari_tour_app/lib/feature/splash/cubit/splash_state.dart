@@ -9,7 +9,10 @@ class SplashSuccess extends SplashState {
   SplashSuccess({required this.token});
 }
 
-class SplashFailure extends SplashState {}
+class SplashFailure extends SplashState {
+  final String message;
+  SplashFailure(this.message);
+}
 
 class SplashLoading extends SplashState {
   bool? isVisible;

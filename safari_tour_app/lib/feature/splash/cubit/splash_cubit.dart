@@ -20,13 +20,13 @@ class SplashCubit extends Cubit<SplashState> {
           currentUser = userInfo;
           emit(SplashSuccess(token: token));
         } else {
-          emit(SplashFailure());
+          emit(SplashFailure('User has no any information!'));
         }
       } catch (e) {
-        emit(SplashFailure());
+        emit(SplashFailure(e.toString()));
       }
     } else {
-      emit(SplashFailure());
+      emit(SplashFailure('User has no Token!'));
     }
   }
 
