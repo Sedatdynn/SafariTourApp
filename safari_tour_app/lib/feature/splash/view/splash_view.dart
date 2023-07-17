@@ -19,23 +19,34 @@ class SplashScreenView extends StatelessWidget {
   @override
   build(BuildContext context) {
     return BlocConsumer<SplashCubit, SplashState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print(state);
+      },
       builder: (context, state) {
+        print(state);
+
         switch (state) {
           case SplashFailure():
-            Timer(Durations.fast, () {
+            Timer(Durations.slow, () {
               NavigateTo.replace(context, RouteEnum.launch.withSlash);
             });
             break;
 
           case SplashSuccess():
-            Timer(Durations.fast, () {
+            Timer(Durations.slow, () {
               AutoRouter.of(context).replace(HomeRoute(currentUser: context.read<SplashCubit>().currentUser));
+            });
+            break;
+          case SplashLoading():
+            Timer(Durations.fast, () {
+              NavigateTo.replace(context, RouteEnum.launch.withSlash);
             });
             break;
 
           default:
+            print(state);
         }
+
         return Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(

@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../product/enums/routes/routes_enum.dart';
-import '../../../product/utility/navigate/navigate.dart';
 import '../login_shelf.dart';
+
+part '../widget/bottom_auth_texts.dart';
+part '../widget/login_button.dart';
+part '../widget/login_textfields.dart';
+part '../widget/login_app_bar.dart';
+part '../widget/login_text.dart';
 
 @RoutePage()
 class LoginView extends StatelessWidget {
@@ -28,21 +28,10 @@ class LoginView extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: buildCustomAppBar(context),
+            appBar: const _LoginAppBar(),
             body: buildFormBody(state, context),
           );
         },
-      ),
-    );
-  }
-
-  AppBar buildCustomAppBar(BuildContext context) {
-    return AppBar(
-      leading: Visibility(
-        visible: context.watch<LoginCubit>().isLoading,
-        child: const CircularProgressIndicator(
-          color: AppColors.button,
-        ),
       ),
     );
   }
@@ -68,88 +57,15 @@ class LoginView extends StatelessWidget {
           ConstSpace(
             height: context.dynamicHeight(0.05),
           ),
-          buildLoginText(context),
+          const _LoginText(),
           const ConstSpace(),
-          buildUsernameTextfield(),
+          _LoginTextFields(usernameController: usernameController, passwordController: passwordController),
           const ConstSpace(),
-          buildPasswordTextfield(context),
+          const _LoginButton(),
           const ConstSpace(),
-          buildLoginButton(context),
-          const ConstSpace(),
-          buildBottomText(context),
+          const _BottomAuthTexts(),
         ],
       ),
-    );
-  }
-
-  Align buildLoginText(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        AppText.login,
-        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.black),
-      ),
-    );
-  }
-
-  ProductTextField buildUsernameTextfield() {
-    return ProductTextField(
-      controller: usernameController,
-      validator: (value) => (value ?? "").length >= 4 ? null : AppText.invalidUsername,
-      hintText: AppText.exampleUsername,
-      keyboardType: TextInputType.text,
-    );
-  }
-
-  ProductTextField buildPasswordTextfield(BuildContext context) {
-    return ProductTextField(
-        controller: passwordController,
-        validator: (value) => (value ?? "").length >= 6 ? null : AppText.invalidPassword,
-        hintText: AppText.password,
-        keyboardType: TextInputType.emailAddress,
-        secondIcon: Icons.visibility_outlined,
-        firstIcon: Icons.visibility_off_outlined,
-        passwordVisible: context.watch<LoginCubit>().isVisible,
-        onPressed: context.read<LoginCubit>().changeVisible);
-  }
-
-  Widget buildLoginButton(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return SizedBox(
-          width: context.width,
-          child: ActiveButton(
-            label: AppText.login.toUpperCase(),
-            onPressed: context.watch<LoginCubit>().isLoading
-                ? null
-                : () {
-                    context.read<LoginCubit>().postUserModel();
-                  },
-          ),
-        );
-      },
-    );
-  }
-
-  Widget buildBottomText(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          AppText.doNotHaveAccount,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: AppColors.darkGrey.withOpacity(0.4),
-              ),
-        ),
-        InkWell(
-          onTap: () => NavigateTo.push(context, RouteEnum.register.withSlash),
-          child: Text(
-            AppText.register,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.mainPrimary),
-          ),
-        ),
-      ],
     );
   }
 }
